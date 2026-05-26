@@ -3,22 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Equity Intelligence Dashboard</title>
+<title>Stock & Equity Insights</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 body{
-  background: linear-gradient(135deg,#061a33,#0b2a55,#0f3d6e);
+  background: linear-gradient(135deg,#0b2a55,#0f3d6e,#09203a);
   color:white;
   font-family:sans-serif;
 }
 
 .card{
   background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
 }
 
 .hidden{display:none;}
@@ -35,179 +33,190 @@ body{
 
 <body class="min-h-screen">
 
-<!-- ================= NAV ================= -->
-<div class="flex justify-between items-center p-4">
-  <h1 class="font-bold">Equity Intelligence</h1>
-  <button onclick="loadMarket()" class="btn">Refresh Market</button>
-</div>
+<!-- ================= INTRO PAGE ================= -->
+<section id="intro" class="p-8 flex flex-col items-center justify-center min-h-screen text-center">
 
-<!-- ================= DASHBOARD ================= -->
-<section id="dashboard" class="p-6">
+  <h1 class="text-3xl font-bold mb-6">Stock & Equity Learning Platform</h1>
 
-<!-- MARKET CARDS -->
-<div class="grid md:grid-cols-3 gap-4">
+  <div class="card p-6 rounded-2xl max-w-2xl text-left">
 
-  <div class="card p-5 rounded-xl">
-    <h2 class="font-bold">Apple (AAPL)</h2>
-    <p id="aaplPrice">Loading...</p>
+    <p class="mb-4">
+      👋 Have you heard much about how modern stock and equity-linked investments are being used to generate monthly income lately?
+    </p>
+
+    <p class="mb-4">
+      Many people assume the stock market is only for long-term growth, but there are structured strategies designed to show returns in shorter cycles.
+      These involve portfolio balancing, market timing analysis, and risk-adjusted allocation.
+    </p>
+
+    <p class="mb-4">
+      This platform helps you understand those mechanics in a simplified way so you can explore how capital growth strategies work.
+    </p>
+
+    <p class="text-sm text-gray-200">
+      📊 Note: Stocks historically fluctuate based on market cycles, company performance, and global economic conditions.
+      Long-term investing has historically provided the most stable growth pattern.
+    </p>
+
   </div>
 
-  <div class="card p-5 rounded-xl">
-    <h2 class="font-bold">Tesla (TSLA)</h2>
-    <p id="tslaPrice">Loading...</p>
+  <button onclick="goInfo()" class="btn mt-8">Proceed</button>
+</section>
+
+<!-- ================= INFO PAGE ================= -->
+<section id="info" class="hidden p-8">
+
+  <button onclick="back('intro')" class="mb-4 text-white">← Back</button>
+
+  <h2 class="text-2xl font-bold mb-4">Market Overview</h2>
+
+  <div class="card p-6 rounded-2xl space-y-4">
+
+    <p>📈 Stocks represent partial ownership in companies like Apple, Tesla, and Microsoft.</p>
+
+    <p>💡 Equity-linked strategies aim to balance risk and return through structured allocation models.</p>
+
+    <p>📊 Market behavior is influenced by supply, demand, earnings reports, and macroeconomic trends.</p>
+
+    <p>⚠️ Returns are never guaranteed and vary depending on market conditions.</p>
+
   </div>
 
-  <div class="card p-5 rounded-xl">
-    <h2 class="font-bold">Microsoft (MSFT)</h2>
-    <p id="msftPrice">Loading...</p>
+  <button onclick="goTiers()" class="btn mt-6">Proceed</button>
+
+</section>
+
+<!-- ================= TIERS ================= -->
+<section id="tiers" class="hidden p-8">
+
+  <button onclick="back('info')" class="mb-4 text-white">← Back</button>
+
+  <h2 class="text-2xl font-bold mb-6">Investment Tiers</h2>
+
+  <div class="grid md:grid-cols-3 gap-4">
+
+    <div class="card p-5 rounded-xl">
+      <h3 class="font-bold">Silver Tier</h3>
+      <p>$1,000 - $10,000</p>
+      <button onclick="openCalc('Silver',1000,10000)" class="btn mt-4">Select</button>
+    </div>
+
+    <div class="card p-5 rounded-xl border border-yellow-300">
+      <h3 class="font-bold">Gold Tier</h3>
+      <p>$10,000 - $50,000</p>
+      <button onclick="openCalc('Gold',10000,50000)" class="btn mt-4">Select</button>
+    </div>
+
+    <div class="card p-5 rounded-xl border border-blue-300">
+      <h3 class="font-bold">Diamond Tier</h3>
+      <p>$50,000+</p>
+      <button onclick="openCalc('Diamond',50000,999999)" class="btn mt-4">Select</button>
+    </div>
+
   </div>
 
-</div>
+</section>
 
-<!-- CHART -->
-<div class="card p-6 mt-6 rounded-xl">
-  <h2 class="font-bold mb-4">Market Trend (Demo Live Feed)</h2>
-  <canvas id="chart"></canvas>
-</div>
+<!-- ================= CALCULATOR ================= -->
+<section id="calc" class="hidden p-8">
 
-<!-- PORTFOLIO -->
-<div class="card p-6 mt-6 rounded-xl">
-  <h2 class="font-bold mb-2">Portfolio Tracker</h2>
-  <p id="portfolio">No investments yet</p>
-</div>
+  <button onclick="back('tiers')" class="mb-4 text-white">← Back</button>
 
-<!-- TIER CALCULATOR -->
-<div class="card p-6 mt-6 rounded-xl">
+  <h2 id="tierTitle" class="text-xl font-bold mb-4"></h2>
 
-<h2 class="font-bold mb-2">Investment Simulation (6x Model)</h2>
+  <div class="card p-6 rounded-2xl max-w-md">
 
-<select id="tier" class="text-black p-2 rounded">
-  <option value="Silver">Silver</option>
-  <option value="Gold">Gold</option>
-  <option value="Diamond">Diamond</option>
-</select>
+    <input id="amount" type="number"
+      class="w-full p-3 text-black rounded"
+      placeholder="Enter investment amount"
+      oninput="calculate()">
 
-<input id="amount" type="number" placeholder="Enter amount"
-class="text-black p-2 rounded ml-2">
+    <p id="result" class="mt-4 text-green-300 font-bold"></p>
 
-<button onclick="calc()" class="btn ml-2">Calculate</button>
+    <button onclick="goContact()" class="btn mt-6 w-full">
+      Proceed
+    </button>
 
-<p id="result" class="mt-3 text-green-300 font-bold"></p>
+  </div>
 
-</div>
+</section>
+
+<!-- ================= CONTACT MANAGER ================= -->
+<section id="contact" class="hidden p-8 text-center">
+
+  <button onclick="back('calc')" class="mb-4 text-white">← Back</button>
+
+  <h2 class="text-xl font-bold mb-4">Contact Investment Manager</h2>
+
+  <div class="card p-6 rounded-2xl max-w-xl mx-auto">
+
+    <p class="mb-4">
+      To proceed with this investment strategy, please contact your assigned investment manager for payment coordination and account setup.
+    </p>
+
+    <p class="text-gray-200 text-sm">
+      Your selected tier and projected returns will be recorded for reference.
+    </p>
+
+  </div>
 
 </section>
 
 <script>
 
-let chart;
+let min=0,max=0,tier="";
 
-// REAL MARKET DATA (public API)
-async function loadMarket(){
-
-  try{
-    const res = await fetch("https://api.coindesk.com/v1/bpi/currentprice.json");
-    const data = await res.json();
-
-    const btc = data.bpi.USD.rate_float;
-
-    document.getElementById("aaplPrice").innerText = "$" + (btc % 200 + 150).toFixed(2);
-    document.getElementById("tslaPrice").innerText = "$" + (btc % 300 + 220).toFixed(2);
-    document.getElementById("msftPrice").innerText = "$" + (btc % 250 + 180).toFixed(2);
-
-    updateChart(btc);
-
-  } catch(e){
-    console.log("Market load error", e);
-  }
+// NAVIGATION
+function goInfo(){
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("info").classList.remove("hidden");
 }
 
-// CHART
-function updateChart(value){
-
-  let ctx = document.getElementById("chart");
-
-  if(chart) chart.destroy();
-
-  chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-      datasets: [{
-        label: "Market Movement",
-        data: [
-          value*0.9,
-          value*1.1,
-          value*1.05,
-          value*1.2,
-          value*1.15,
-          value*1.3,
-          value
-        ],
-        borderColor: "white",
-        borderWidth: 2
-      }]
-    }
-  });
+function goTiers(){
+  document.getElementById("info").classList.add("hidden");
+  document.getElementById("tiers").classList.remove("hidden");
 }
 
-// SIMULATION CALC
-function calc(){
+function openCalc(t,mn,mx){
+  tier=t;
+  min=mn;
+  max=mx;
 
-  let tier = document.getElementById("tier").value;
-  let amount = Number(document.getElementById("amount").value);
+  document.getElementById("tiers").classList.add("hidden");
+  document.getElementById("calc").classList.remove("hidden");
 
-  if(!amount){
+  document.getElementById("tierTitle").innerText = t + " Tier";
+}
+
+// 6X CALCULATION
+function calculate(){
+  let v = Number(document.getElementById("amount").value);
+
+  if(isNaN(v) || v < min || v > max){
     document.getElementById("result").innerText = "";
     return;
   }
 
-  let multiplier = 6;
-
-  let profit = amount * multiplier;
-
   document.getElementById("result").innerText =
-    `${tier} Projection (6x Model): $${profit.toLocaleString()}`;
-
-  savePortfolio(tier, amount, profit);
+    "Projected Return (6x): $" + (v * 6).toLocaleString();
 }
 
-// PORTFOLIO SAVE
-function savePortfolio(tier, amount, profit){
-
-  let data = JSON.parse(localStorage.getItem("portfolio")) || [];
-
-  data.push({
-    tier,
-    amount,
-    profit,
-    date: new Date().toLocaleString()
-  });
-
-  localStorage.setItem("portfolio", JSON.stringify(data));
-
-  renderPortfolio();
+function goContact(){
+  document.getElementById("calc").classList.add("hidden");
+  document.getElementById("contact").classList.remove("hidden");
 }
 
-// PORTFOLIO DISPLAY
-function renderPortfolio(){
+// BACK FUNCTION
+function back(page){
 
-  let data = JSON.parse(localStorage.getItem("portfolio")) || [];
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("info").classList.add("hidden");
+  document.getElementById("tiers").classList.add("hidden");
+  document.getElementById("calc").classList.add("hidden");
+  document.getElementById("contact").classList.add("hidden");
 
-  if(data.length === 0){
-    document.getElementById("portfolio").innerText = "No investments yet";
-    return;
-  }
-
-  document.getElementById("portfolio").innerHTML =
-    data.map(d =>
-      `• ${d.tier} | Invested: $${d.amount} | Return: $${d.profit}`
-    ).join("<br>");
+  document.getElementById(page).classList.remove("hidden");
 }
-
-// INIT
-loadMarket();
-renderPortfolio();
 
 </script>
 
