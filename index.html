@@ -273,7 +273,116 @@ function confirmPayment(){
 alert("Payment processed successfully");
 closePayment();
 }
+<script>
 
+let min = 0;
+let max = Infinity;
+let user = null;
+
+/* ================= AUTH ================= */
+function openAuth(){
+  document.getElementById("authModal").classList.remove("hidden");
+}
+
+function closeAuth(){
+  document.getElementById("authModal").classList.add("hidden");
+}
+
+function register(){
+  user = document.getElementById("email").value;
+
+  if(!user){
+    alert("Enter email");
+    return;
+  }
+
+  localStorage.setItem("user", user);
+  updateAuth();
+  closeAuth();
+}
+
+function login(){
+  let e = document.getElementById("email").value;
+
+  if(localStorage.getItem("user") === e){
+    user = e;
+    updateAuth();
+    closeAuth();
+  } else {
+    alert("No account found");
+  }
+}
+
+function updateAuth(){
+  document.getElementById("authState").innerText =
+    user ? "Logged in: " + user : "Not logged in";
+}
+
+/* ================= NAV ================= */
+function showTiers(){
+  document.getElementById("landing").classList.add("hidden");
+  document.getElementById("tiers").classList.remove("hidden");
+}
+
+/* ================= INVESTMENT ================= */
+function openCalc(tier, minVal, maxVal){
+
+  min = minVal;
+  max = maxVal;
+
+  document.getElementById("modal").classList.remove("hidden");
+  document.getElementById("tierTitle").innerText = tier + " Investment";
+
+  document.getElementById("amount").value = minVal;
+
+  calc();
+}
+
+function closeModal(){
+  document.getElementById("modal").classList.add("hidden");
+}
+
+function calc(){
+
+  let v = parseFloat(document.getElementById("amount").value);
+
+  let error = document.getElementById("error");
+  let result = document.getElementById("result");
+
+  if(isNaN(v) || v < min || v > max){
+    error.classList.remove("hidden");
+    result.innerText = "$0";
+    return;
+  }
+
+  error.classList.add("hidden");
+  result.innerText = "$" + (v * 3).toLocaleString();
+}
+
+/* ================= PAYMENT ================= */
+function openPayment(){
+
+  if(!user){
+    alert("Login required");
+    return;
+  }
+
+  document.getElementById("payModal").classList.remove("hidden");
+}
+
+function closePayment(){
+  document.getElementById("payModal").classList.add("hidden");
+}
+
+function confirmPayment(){
+  alert("Payment processed successfully");
+  closePayment();
+}
+
+/* init */
+updateAuth();
+
+</script>
 </script>
 
 </body>
