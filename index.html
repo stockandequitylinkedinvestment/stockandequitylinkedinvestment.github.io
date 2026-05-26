@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stock & Equity Linked Investments</title>
+<title>Stock & Equity Investment Platform</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -13,15 +13,10 @@ body {
   color: #fff;
 }
 
-.smooth {
-  transition: all 0.3s ease;
-}
+.smooth { transition: 0.3s ease; }
 
-.card-hover:hover {
-  transform: translateY(-8px);
-}
+.card:hover { transform: translateY(-6px); }
 
-/* slight glass effect */
 .glass {
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(10px);
@@ -34,24 +29,22 @@ body {
 <!-- ================= AUTH ================= -->
 <div class="fixed top-4 right-4 glass border border-white/20 p-3 rounded-xl text-xs z-50">
   <div id="authState">Not logged in</div>
-  <button onclick="openAuth()" class="mt-2 bg-white text-black px-3 py-1 rounded-lg text-xs">
-    Login / Register
+  <button onclick="openAuth()" class="mt-2 bg-white text-black px-3 py-1 rounded-lg">
+    Login
   </button>
 </div>
 
+<!-- AUTH MODAL -->
 <div id="authModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-6 z-50">
   <div class="bg-black border border-white/20 rounded-2xl p-6 w-full max-w-sm">
 
-    <h2 class="text-xl font-bold mb-4">Account Access</h2>
+    <h2 class="text-xl font-bold mb-4">Account Login</h2>
 
     <input id="email" type="email" placeholder="Email"
       class="w-full p-3 mb-3 bg-white/5 border border-white/10 rounded-xl text-white">
 
-    <input id="password" type="password" placeholder="Password"
-      class="w-full p-3 mb-4 bg-white/5 border border-white/10 rounded-xl text-white">
-
     <button onclick="register()" class="w-full bg-white text-black py-2 rounded-xl mb-2">
-      Register
+      Register / Save
     </button>
 
     <button onclick="login()" class="w-full bg-gray-700 text-white py-2 rounded-xl">
@@ -68,16 +61,16 @@ body {
 <!-- ================= LANDING ================= -->
 <section id="landing" class="text-center max-w-2xl">
 
-  <h1 class="text-4xl md:text-5xl font-bold tracking-tight">
+  <h1 class="text-4xl md:text-5xl font-bold">
     Stock & Equity <span class="text-gray-400">Investment Platform</span>
   </h1>
 
-  <p class="text-gray-400 mt-6 leading-relaxed">
-    Structured investment experience for portfolio growth, strategy planning, and capital scaling.
+  <p class="text-gray-400 mt-6">
+    Structured investment system for portfolio growth and capital planning.
   </p>
 
-  <button onclick="showTiers()" 
-    class="mt-10 px-8 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 smooth">
+  <button onclick="showTiers()"
+    class="mt-10 px-8 py-3 bg-white text-black font-semibold rounded-xl">
     Start Investing
   </button>
 
@@ -86,77 +79,52 @@ body {
 <!-- ================= TIERS ================= -->
 <section id="tiers" class="hidden w-full max-w-6xl mt-20">
 
-<h2 class="text-3xl font-bold text-center mb-12">Choose Investment Tier</h2>
+<h2 class="text-3xl font-bold text-center mb-12">Investment Tiers</h2>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
 <!-- VIP -->
-<div class="glass border border-white/10 rounded-2xl p-6 card-hover smooth">
+<div class="glass border border-white/10 p-6 rounded-2xl card smooth">
 <h3 class="text-xl font-bold">VIP</h3>
-<p class="text-gray-400">$1,000 - $10,000</p>
-
-<ul class="text-sm text-gray-300 mt-6 space-y-2">
-<li>✓ Core portfolio</li>
-<li>✓ Weekly insights</li>
-<li>✓ Standard support</li>
-</ul>
+<p class="text-gray-400">$1K - $10K</p>
 
 <button onclick="openCalc('VIP',1000,10000)"
 class="mt-6 w-full bg-white text-black py-2 rounded-xl">
-Invest VIP
+Invest
 </button>
 </div>
 
 <!-- EXPERT -->
-<div class="glass border border-white/20 rounded-2xl p-6 card-hover smooth scale-105 relative">
+<div class="glass border border-white/20 p-6 rounded-2xl card smooth scale-105">
+<h3 class="text-xl font-bold">Expert</h3>
+<p class="text-gray-400">$10K - $50K</p>
 
-<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-black text-xs px-3 py-1 rounded-full">
-Most Popular
-</div>
-
-<h3 class="text-xl font-bold mt-4">Expert</h3>
-<p class="text-gray-400">$10,001 - $50,000</p>
-
-<ul class="text-sm text-gray-300 mt-6 space-y-2">
-<li>✓ Advanced tools</li>
-<li>✓ Priority support</li>
-<li>✓ Strategy upgrades</li>
-</ul>
-
-<button onclick="openCalc('Expert',10001,50000)"
-class="mt-6 w-full bg-gray-200 text-black py-2 rounded-xl">
-Invest Expert
+<button onclick="openCalc('Expert',10000,50000)"
+class="mt-6 w-full bg-white text-black py-2 rounded-xl">
+Invest
 </button>
 </div>
 
 <!-- DIAMOND -->
-<div class="glass border border-white/10 rounded-2xl p-6 card-hover smooth">
-
+<div class="glass border border-white/10 p-6 rounded-2xl card smooth">
 <h3 class="text-xl font-bold">Diamond</h3>
-<p class="text-gray-400">$50,001+</p>
+<p class="text-gray-400">$50K+</p>
 
-<ul class="text-sm text-gray-300 mt-6 space-y-2">
-<li>✓ Custom portfolio</li>
-<li>✓ Dedicated manager</li>
-<li>✓ Elite access</li>
-</ul>
-
-<button onclick="openCalc('Diamond',50001,Infinity)"
+<button onclick="openCalc('Diamond',50000,9999999)"
 class="mt-6 w-full bg-white text-black py-2 rounded-xl">
-Invest Diamond
+Invest
 </button>
 </div>
 
 </div>
 </section>
 
-<!-- ================= INVEST MODAL ================= -->
+<!-- ================= CALCULATOR ================= -->
 <div id="modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-6 z-50">
 
-<div class="bg-black border border-white/20 rounded-2xl p-6 w-full max-w-md">
+<div class="bg-black border border-white/20 p-6 rounded-2xl w-full max-w-md">
 
-<h3 id="tierTitle" class="text-xl font-bold"></h3>
-<p id="tierRange" class="text-gray-400 text-sm mb-4"></p>
+<h2 id="tierName" class="text-xl font-bold mb-2"></h2>
 
 <input id="amount" type="number"
 class="w-full p-3 bg-white/5 border border-white/10 rounded-xl"
@@ -164,17 +132,17 @@ placeholder="Enter amount" oninput="calc()">
 
 <p id="error" class="text-red-400 text-xs mt-2 hidden">Invalid amount</p>
 
-<div class="mt-6 text-center">
+<div class="mt-5 text-center">
 <p class="text-gray-400 text-xs">Projected Return</p>
 <h2 id="result" class="text-2xl font-bold">$0</h2>
 </div>
 
 <button onclick="openPayment()"
 class="mt-6 w-full bg-white text-black py-2 rounded-xl">
-Proceed to Payment
+Proceed
 </button>
 
-<button onclick="closeModal()" class="mt-3 text-gray-400 text-sm w-full">
+<button onclick="closeModal()" class="mt-3 text-gray-400 w-full text-sm">
 Close
 </button>
 
@@ -184,30 +152,28 @@ Close
 <!-- ================= PAYMENT ================= -->
 <div id="payModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center p-6 z-50">
 
-<div class="bg-black border border-white/20 rounded-2xl p-6 w-full max-w-md">
+<div class="bg-black border border-white/20 p-6 rounded-2xl w-full max-w-md">
 
-<h2 class="text-xl font-bold mb-4">Payment Gateway</h2>
+<h2 class="text-xl font-bold mb-4">Payment</h2>
 
-<input placeholder="Card Number" class="w-full p-3 mb-3 bg-white/5 border border-white/10 rounded-xl">
-<input placeholder="Expiry" class="w-full p-3 mb-3 bg-white/5 border border-white/10 rounded-xl">
-<input placeholder="CVV" class="w-full p-3 mb-4 bg-white/5 border border-white/10 rounded-xl">
+<input placeholder="Card Number" class="w-full p-3 mb-3 bg-white/5 border rounded-xl">
+<input placeholder="Expiry" class="w-full p-3 mb-3 bg-white/5 border rounded-xl">
+<input placeholder="CVV" class="w-full p-3 mb-3 bg-white/5 border rounded-xl">
 
 <button onclick="confirmPayment()" class="w-full bg-white text-black py-2 rounded-xl">
-Confirm Payment
+Confirm
 </button>
 
-<button onclick="closePayment()" class="mt-3 text-gray-400 text-sm w-full">
+<button onclick="closePayment()" class="mt-3 text-gray-400 w-full text-sm">
 Cancel
 </button>
 
 </div>
 </div>
 
-<!-- ================= SCRIPT ================= -->
 <script>
 
-let min=0,max=Infinity;
-let user=null;
+let min=0,max=0,user=null;
 
 // AUTH
 function openAuth(){document.getElementById("authModal").classList.remove("hidden")}
@@ -224,12 +190,12 @@ function login(){
 let e=document.getElementById("email").value;
 if(localStorage.getItem("user")===e){
 user=e;updateAuth();closeAuth();
-}else alert("No account");
+}else alert("No account found");
 }
 
 function updateAuth(){
-document.getElementById("authState").innerText=
-user?"Logged in: "+user:"Not logged in";
+document.getElementById("authState").innerText =
+user ? "Logged in: " + user : "Not logged in";
 }
 
 // NAV
@@ -239,21 +205,25 @@ document.getElementById("tiers").classList.remove("hidden");
 }
 
 // INVEST
-function openCalc(t,mx,mx2){
-min=m;max=mx2;
+function openCalc(t,mn,mx){
+min=mn;max=mx;
 document.getElementById("modal").classList.remove("hidden");
-document.getElementById("tierTitle").innerText=t;
-document.getElementById("amount").value=m;
+document.getElementById("tierName").innerText=t;
+document.getElementById("amount").value=mn;
 calc();
 }
 
-function closeModal(){document.getElementById("modal").classList.add("hidden")}
+function closeModal(){
+document.getElementById("modal").classList.add("hidden");
+}
 
+// CALC
 function calc(){
 let v=parseFloat(document.getElementById("amount").value);
 if(isNaN(v)||v<min||v>max){
 document.getElementById("error").classList.remove("hidden");
-document.getElementById("result").innerText="$0";return;
+document.getElementById("result").innerText="$0";
+return;
 }
 document.getElementById("error").classList.add("hidden");
 document.getElementById("result").innerText="$"+(v*3).toLocaleString();
@@ -261,7 +231,7 @@ document.getElementById("result").innerText="$"+(v*3).toLocaleString();
 
 // PAYMENT
 function openPayment(){
-if(!user){alert("Login required");return}
+if(!user){alert("Login required");return;}
 document.getElementById("payModal").classList.remove("hidden");
 }
 
@@ -270,119 +240,12 @@ document.getElementById("payModal").classList.add("hidden");
 }
 
 function confirmPayment(){
-alert("Payment processed successfully");
+alert("Success");
 closePayment();
 }
-<script>
 
-let min = 0;
-let max = Infinity;
-let user = null;
-
-/* ================= AUTH ================= */
-function openAuth(){
-  document.getElementById("authModal").classList.remove("hidden");
-}
-
-function closeAuth(){
-  document.getElementById("authModal").classList.add("hidden");
-}
-
-function register(){
-  user = document.getElementById("email").value;
-
-  if(!user){
-    alert("Enter email");
-    return;
-  }
-
-  localStorage.setItem("user", user);
-  updateAuth();
-  closeAuth();
-}
-
-function login(){
-  let e = document.getElementById("email").value;
-
-  if(localStorage.getItem("user") === e){
-    user = e;
-    updateAuth();
-    closeAuth();
-  } else {
-    alert("No account found");
-  }
-}
-
-function updateAuth(){
-  document.getElementById("authState").innerText =
-    user ? "Logged in: " + user : "Not logged in";
-}
-
-/* ================= NAV ================= */
-function showTiers(){
-  document.getElementById("landing").classList.add("hidden");
-  document.getElementById("tiers").classList.remove("hidden");
-}
-
-/* ================= INVESTMENT ================= */
-function openCalc(tier, minVal, maxVal){
-
-  min = minVal;
-  max = maxVal;
-
-  document.getElementById("modal").classList.remove("hidden");
-  document.getElementById("tierTitle").innerText = tier + " Investment";
-
-  document.getElementById("amount").value = minVal;
-
-  calc();
-}
-
-function closeModal(){
-  document.getElementById("modal").classList.add("hidden");
-}
-
-function calc(){
-
-  let v = parseFloat(document.getElementById("amount").value);
-
-  let error = document.getElementById("error");
-  let result = document.getElementById("result");
-
-  if(isNaN(v) || v < min || v > max){
-    error.classList.remove("hidden");
-    result.innerText = "$0";
-    return;
-  }
-
-  error.classList.add("hidden");
-  result.innerText = "$" + (v * 3).toLocaleString();
-}
-
-/* ================= PAYMENT ================= */
-function openPayment(){
-
-  if(!user){
-    alert("Login required");
-    return;
-  }
-
-  document.getElementById("payModal").classList.remove("hidden");
-}
-
-function closePayment(){
-  document.getElementById("payModal").classList.add("hidden");
-}
-
-function confirmPayment(){
-  alert("Payment processed successfully");
-  closePayment();
-}
-
-/* init */
 updateAuth();
 
-</script>
 </script>
 
 </body>
