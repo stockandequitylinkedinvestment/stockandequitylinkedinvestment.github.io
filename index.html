@@ -1,90 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stocks & Equity-Linked Investments</title>
-  <meta name="description" content="Stock market insights and equity-linked opportunities designed for steady, long-term growth. Educational and research-driven.">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f4f6f8;
-      color: #1f2933;
-      line-height: 1.6;
-    }
-    header {
-      background: #0f172a;
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-    }
-    section {
-      padding: 40px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-    h1, h2 {
-      color: #0f172a;
-    }
-    .box {
-      background: white;
-      padding: 25px;
-      margin-bottom: 20px;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-    footer {
-      background: #0f172a;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Equity Investment Platform</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b1220;
+  color: white;
+}
+
+header {
+  background: #111827;
+  padding: 25px;
+  text-align: center;
+}
+
+h1 { margin: 0; }
+
+.container {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: #1f2937;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+button {
+  background: #22c55e;
+  border: none;
+  padding: 10px;
+  color: white;
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #16a34a;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+}
+
+.result {
+  margin-top: 10px;
+  color: #93c5fd;
+}
+</style>
 </head>
+
 <body>
 
 <header>
-  <h1>Stocks & Equity-Linked Investments</h1>
-  <p>Smart Equity Insights for Steady, Long-Term Growth</p>
+  <h1>Stocks & Equity Investment Dashboard</h1>
+  <p>Demo investment platform (simulated returns)</p>
 </header>
 
-<section>
-  <div class="box">
-    <h2>What We Do</h2>
-    <p>
-      We provide stock market insights and equity-linked opportunities designed
-      for individuals seeking steady, long-term growth through informed decision-making.
-    </p>
+<div class="container">
+
+  <div class="card">
+    <h2>Invest</h2>
+
+    <label>Select Investment</label>
+    <select id="amount">
+      <option value="1000">$1,000</option>
+      <option value="5000">$5,000</option>
+      <option value="10000">$10,000</option>
+      <option value="25000">$25,000</option>
+      <option value="50000">$50,000</option>
+      <option value="100000">$100,000</option>
+    </select>
+
+    <button onclick="calculate()">Calculate Projection</button>
+
+    <div class="result" id="result"></div>
   </div>
 
-  <div class="box">
-    <h2>Our Focus</h2>
-    <ul>
-      <li>Stock market research and insights</li>
-      <li>Equity-linked investment opportunities</li>
-      <li>Education-first approach</li>
-      <li>Risk-aware strategies</li>
-    </ul>
+  <div class="card">
+    <h2>Portfolio</h2>
+    <p>Track your simulated investments and performance.</p>
   </div>
 
-  <div class="box">
-    <h2>Important Disclaimer</h2>
-    <p>
-      Investing in equities involves risk, including possible loss of capital.
-      Past performance does not guarantee future results.
-    </p>
-    <p>
-      This website provides educational and informational content only and does not
-      constitute financial advice.
-    </p>
+  <div class="card">
+    <h2>Market Insights</h2>
+    <p>AI-driven market overview (demo data).</p>
   </div>
-</section>
 
-<footer>
-  © 2026 Stocks & Equity-Linked Investments. All rights reserved.
-</footer>
+</div>
+
+<script>
+function calculate() {
+  let amount = document.getElementById("amount").value;
+
+  // Simulated annual return range (not real guarantee)
+  let min = amount * 1.05;
+  let max = amount * 1.18;
+
+  document.getElementById("result").innerHTML =
+    "Projected range after 12 months: $" +
+    Math.round(min) + " - $" + Math.round(max) +
+    "<br><small>(Simulated estimates, not guaranteed returns)</small>";
+}
+</script>
 
 </body>
 </html>
