@@ -1,254 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stock & Equity Platform</title>
-
+<title>Investment Platform</title>
 <script src="https://cdn.tailwindcss.com"></script>
 
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
+
 <style>
-body {
-  background: linear-gradient(135deg, #0a1f44, #102a56, #0b3a6a);
-  color: white;
-  font-family: sans-serif;
-}
-
-.glass {
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
-}
-
+body { background: #0b2a55; color: white; }
 .hidden { display:none; }
 </style>
 </head>
 
-<body class="min-h-screen">
+<body class="p-6">
 
-<!-- ================= LOGIN PAGE ================= -->
-<div id="loginPage" class="flex flex-col items-center justify-center min-h-screen p-6">
+<!-- LOGIN -->
+<div id="authBox">
+  <h1 class="text-2xl mb-4">Login</h1>
+  <input id="email" placeholder="Email" class="p-2 text-black w-full mb-2">
+  <input id="password" type="password" placeholder="Password" class="p-2 text-black w-full mb-2">
 
-  <h1 class="text-4xl font-bold mb-6">Stock & Equity Investment</h1>
-
-  <p class="text-center text-white/70 max-w-md mb-8">
-    Join a structured investment system with tier-based portfolio growth.
-  </p>
-
-  <div class="glass p-6 rounded-2xl w-full max-w-sm">
-
-    <input id="email" type="email" placeholder="Email"
-      class="w-full p-3 mb-3 rounded bg-white/10 border border-white/20">
-
-    <input id="password" type="password" placeholder="Password"
-      class="w-full p-3 mb-3 rounded bg-white/10 border border-white/20">
-
-    <button onclick="login()"
-      class="w-full bg-white text-blue-900 font-bold py-2 rounded">
-      Login / Register
-    </button>
-
-  </div>
+  <button onclick="signup()" class="bg-white text-black px-4 py-2">Register</button>
+  <button onclick="login()" class="bg-black border px-4 py-2">Login</button>
 </div>
 
-<!-- ================= DASHBOARD ================= -->
-<div id="dashboard" class="hidden">
+<!-- DASHBOARD -->
+<div id="app" class="hidden">
+  <h2>Investment Dashboard</h2>
 
-<!-- TOP BAR -->
-<div class="flex justify-between items-center p-4">
-  <h2 class="font-bold">Investment Dashboard</h2>
+  <button onclick="invest('Silver',1000)" class="bg-white text-black px-3 py-2 m-2">Silver</button>
+  <button onclick="invest('Gold',10000)" class="bg-yellow-400 text-black px-3 py-2 m-2">Gold</button>
+  <button onclick="invest('Diamond',50000)" class="bg-blue-400 text-black px-3 py-2 m-2">Diamond</button>
 
-  <div class="relative">
-    <button onclick="toggleMenu()">☰</button>
-
-    <div id="menu" class="hidden absolute right-0 mt-2 glass p-3 rounded w-40 text-sm">
-      <button onclick="openProfile()" class="block w-full text-left">Profile</button>
-      <button onclick="logout()" class="block w-full text-left mt-2 text-red-300">Logout</button>
-    </div>
-  </div>
-</div>
-
-<!-- Tiers -->
-<div class="grid md:grid-cols-3 gap-4 p-6">
-
-<!-- SILVER -->
-<div class="glass p-6 rounded-xl">
-<h3>Silver Tier</h3>
-<p>$1,000 - $10,000</p>
-<button onclick="openInvest('Silver',1000,10000)" class="mt-4 bg-white text-blue-900 px-4 py-2 rounded">
-Invest
-</button>
-</div>
-
-<!-- GOLD -->
-<div class="glass p-6 rounded-xl border border-yellow-300">
-<h3>Gold Tier</h3>
-<p>$10,000 - $50,000</p>
-<button onclick="openInvest('Gold',10000,50000)" class="mt-4 bg-yellow-300 text-black px-4 py-2 rounded">
-Invest
-</button>
-</div>
-
-<!-- DIAMOND -->
-<div class="glass p-6 rounded-xl border border-blue-300">
-<h3>Diamond Tier</h3>
-<p>$50,000+</p>
-<button onclick="openInvest('Diamond',50000,999999)" class="mt-4 bg-blue-300 text-black px-4 py-2 rounded">
-Invest
-</button>
-</div>
-
-</div>
-</div>
-
-<!-- ================= INVEST ================= -->
-<div id="investPage" class="hidden p-6">
-
-<h2 id="tierName" class="text-2xl font-bold"></h2>
-
-<input id="amount" type="number" class="p-3 mt-4 text-black w-full rounded" placeholder="Enter amount">
-
-<p id="profit" class="mt-4 text-green-300 font-bold"></p>
-
-<button onclick="nextStep()" class="mt-4 bg-white text-blue-900 px-4 py-2 rounded">
-Continue
-</button>
-
-</div>
-
-<!-- ================= CONTACT ================= -->
-<div id="contactPage" class="hidden p-6 text-center">
-
-<h2 class="text-xl font-bold">Contact Investment Manager</h2>
-<p class="mt-4">Please contact your assigned manager for payment details.</p>
-
-<button onclick="paid()" class="mt-6 bg-green-400 text-black px-4 py-2 rounded">
-I Have Paid
-</button>
-
-</div>
-
-<!-- ================= SUCCESS ================= -->
-<div id="successPage" class="hidden p-6 text-center">
-
-<h2 class="text-green-300 text-2xl font-bold">✔ Payment Confirmed</h2>
-<p class="mt-4">Your investment has been recorded successfully.</p>
-
-<button onclick="backToDashboard()" class="mt-6 bg-white text-blue-900 px-4 py-2 rounded">
-Back to Dashboard
-</button>
-
-</div>
-
-<!-- ================= PROFILE ================= -->
-<div id="profilePage" class="hidden p-6">
-
-<h2 class="text-xl font-bold">Profile</h2>
-
-<div id="profileData" class="mt-4 glass p-4 rounded"></div>
-
-<button onclick="backDashboard()" class="mt-6 bg-white text-blue-900 px-4 py-2 rounded">
-Back
-</button>
-
+  <br><br>
+  <button onclick="logout()" class="bg-red-500 px-3 py-2">Logout</button>
 </div>
 
 <script>
+// ===== FIREBASE CONFIG (YOU MUST REPLACE THIS) =====
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "XXXX",
+  appId: "XXXX"
+};
 
-let user = null;
-let tier = "";
-let investment = 0;
+// INIT
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-// LOGIN
+// AUTH
+function signup(){
+  auth.createUserWithEmailAndPassword(
+    email.value,
+    password.value
+  ).then(() => alert("Registered"));
+}
+
 function login(){
-  const email = document.getElementById("email").value;
-  const pass = document.getElementById("password").value;
-
-  if(!email || !pass){
-    alert("Fill fields");
-    return;
-  }
-
-  user = email;
-  localStorage.setItem("user", email);
-
-  document.getElementById("loginPage").classList.add("hidden");
-  document.getElementById("dashboard").classList.remove("hidden");
+  auth.signInWithEmailAndPassword(
+    email.value,
+    password.value
+  ).then(() => {
+    document.getElementById("authBox").classList.add("hidden");
+    document.getElementById("app").classList.remove("hidden");
+  });
 }
 
-// MENU
-function toggleMenu(){
-  document.getElementById("menu").classList.toggle("hidden");
-}
-
-// INVEST
-function openInvest(t, min, max){
-  tier = t;
-  document.getElementById("dashboard").classList.add("hidden");
-  document.getElementById("investPage").classList.remove("hidden");
-
-  document.getElementById("tierName").innerText = t + " Tier";
-}
-
-// CALC PROFIT
-document.getElementById("amount")?.addEventListener("input", function(){
-  investment = Number(this.value);
-  document.getElementById("profit").innerText =
-    "Projected Return: $" + (investment * 3);
-});
-
-// NEXT STEP
-function nextStep(){
-  document.getElementById("investPage").classList.add("hidden");
-  document.getElementById("contactPage").classList.remove("hidden");
-}
-
-// PAID
-function paid(){
-  document.getElementById("contactPage").classList.add("hidden");
-  document.getElementById("successPage").classList.remove("hidden");
-
-  saveData();
-}
-
-// SAVE
-function saveData(){
-  localStorage.setItem("investment", JSON.stringify({
-    user,
-    tier,
-    investment,
-    return: investment * 3
-  }));
-}
-
-// PROFILE
-function openProfile(){
-  document.getElementById("dashboard").classList.add("hidden");
-  document.getElementById("profilePage").classList.remove("hidden");
-
-  const data = JSON.parse(localStorage.getItem("investment"));
-
-  document.getElementById("profileData").innerHTML = `
-    Email: ${user}<br>
-    Tier: ${data?.tier || "None"}<br>
-    Invested: $${data?.investment || 0}<br>
-    Return: $${data?.return || 0}
-  `;
-}
-
-// NAV BACK
-function backToDashboard(){
-  location.reload();
-}
-
-function backDashboard(){
-  document.getElementById("profilePage").classList.add("hidden");
-  document.getElementById("dashboard").classList.remove("hidden");
-}
-
-// LOGOUT
 function logout(){
-  localStorage.clear();
+  auth.signOut();
   location.reload();
+}
+
+// INVESTMENT (REAL DATABASE SAVE)
+function invest(tier, amount){
+  const user = auth.currentUser;
+
+  db.collection("investments").add({
+    email: user.email,
+    tier: tier,
+    amount: amount,
+    profit: amount * 3,
+    time: new Date()
+  });
+
+  alert("Investment saved to backend!");
 }
 
 </script>
