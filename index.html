@@ -9,186 +9,219 @@
 
 <style>
 body {
-  background: radial-gradient(circle at top, #0a0a0a, #000000);
-  color: white;
-  overflow-x: hidden;
+  background: #f4f7fb;
+  color: #0f172a;
+  font-family: Arial, sans-serif;
 }
 
-/* Background watermark */
-.brand-bg {
+/* subtle branding background */
+.bg-brand {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 8vw;
-  font-weight: 800;
-  opacity: 0.03;
-  white-space: nowrap;
+  font-size: 120px;
+  font-weight: 900;
+  color: rgba(15, 23, 42, 0.05);
+  z-index: 0;
   pointer-events: none;
 }
 
-/* Smooth UI */
-.smooth { transition: all 0.3s ease; }
+.page { display: none; }
+.active { display: block; }
 
-.card:hover { transform: translateY(-6px); }
+.card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
 
-.glass {
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(12px);
+.btn {
+  background: #1e3a8a;
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.btn:hover {
+  background: #1e40af;
 }
 </style>
 </head>
 
-<body class="min-h-screen flex flex-col items-center justify-center px-6">
+<body class="min-h-screen">
 
-<!-- WATERMARK -->
-<div class="brand-bg">STOCK & EQUITY INVESTMENTS</div>
+<div class="bg-brand">INVEST</div>
 
-<!-- ================= AUTH ================= -->
-<div class="fixed top-4 right-4 glass border border-white/10 p-3 rounded-xl text-xs z-50">
-  <div id="authState">Not logged in</div>
-  <button onclick="openAuth()" class="mt-2 bg-white text-black px-3 py-1 rounded-lg">
-    Login
-  </button>
+<!-- ================= LOGIN PAGE ================= -->
+<div id="loginPage" class="page active flex items-center justify-center min-h-screen">
+  <div class="card p-8 w-full max-w-md z-10">
+
+    <h1 class="text-2xl font-bold mb-6 text-center">Investor Login</h1>
+
+    <input id="email" type="email" placeholder="Enter Email"
+      class="w-full p-3 mb-4 border rounded-xl">
+
+    <button onclick="login()" class="btn">Login / Register</button>
+
+    <p class="text-xs text-gray-500 mt-4 text-center">
+      Access your investment dashboard securely
+    </p>
+
+  </div>
 </div>
 
-<!-- AUTH MODAL -->
-<div id="authModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-6 z-50">
-  <div class="bg-black border border-white/20 rounded-2xl p-6 w-full max-w-sm">
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboard" class="page">
 
-    <h2 class="text-xl font-bold mb-4">Account Access</h2>
+  <nav class="flex justify-between items-center p-6 bg-white shadow">
+    <h1 class="font-bold">Equity Investment Platform</h1>
+    <button onclick="logout()" class="text-sm text-blue-800">Logout</button>
+  </nav>
 
-    <input id="email" type="email" placeholder="Email"
-      class="w-full p-3 mb-4 bg-white/5 border border-white/10 rounded-xl text-white">
+  <div class="p-6 max-w-6xl mx-auto">
 
-    <button onclick="register()" class="w-full bg-white text-black py-2 rounded-xl mb-2">
-      Register
-    </button>
+    <h2 class="text-2xl font-bold mb-6">Market Overview</h2>
 
-    <button onclick="login()" class="w-full bg-gray-700 text-white py-2 rounded-xl">
-      Login
-    </button>
+    <div class="grid md:grid-cols-3 gap-6">
 
-    <button onclick="closeAuth()" class="mt-4 text-gray-400 text-sm w-full">
-      Close
+      <div class="card p-6">
+        <h3 class="font-bold">NASDAQ</h3>
+        <p class="text-green-600">+1.24%</p>
+      </div>
+
+      <div class="card p-6">
+        <h3 class="font-bold">S&P 500</h3>
+        <p class="text-green-600">+0.87%</p>
+      </div>
+
+      <div class="card p-6">
+        <h3 class="font-bold">BTC</h3>
+        <p class="text-red-500">-0.32%</p>
+      </div>
+
+    </div>
+
+    <button onclick="goInvest()"
+      class="mt-10 btn max-w-sm">
+      Start Investment
     </button>
 
   </div>
 </div>
 
-<!-- ================= LANDING ================= -->
-<section id="landing" class="text-center max-w-2xl">
+<!-- ================= INVEST PAGE ================= -->
+<div id="investPage" class="page flex items-center justify-center min-h-screen p-6">
 
-  <h1 class="text-4xl md:text-5xl font-bold">
-    Stock & Equity <span class="text-gray-400">Investment Platform</span>
-  </h1>
+  <div class="card p-8 w-full max-w-md">
 
-  <p class="text-gray-400 mt-6 leading-relaxed">
-    A structured investment platform designed for portfolio growth, financial strategy, and long-term capital planning.
-  </p>
+    <h2 class="text-xl font-bold mb-4">Choose Investment Amount</h2>
 
-  <button onclick="showTiers()"
-    class="mt-10 px-8 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 smooth">
-    Start Investing
-  </button>
+    <input id="amount" type="number" placeholder="Enter amount"
+      class="w-full p-3 border rounded-xl mb-4">
 
-</section>
+    <button onclick="calculate()" class="btn">Calculate Returns</button>
 
-<!-- ================= TIERS ================= -->
-<section id="tiers" class="hidden w-full max-w-6xl mt-20">
+    <div id="resultBox" class="hidden mt-6 text-center">
+      <p class="text-gray-500">Projected Return (3x)</p>
+      <h2 id="profit" class="text-2xl font-bold"></h2>
 
-<h2 class="text-3xl font-bold text-center mb-12">Investment Tiers</h2>
+      <button onclick="goContact()" class="btn mt-6">
+        Proceed
+      </button>
+    </div>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-<!-- VIP -->
-<div class="glass border border-white/10 p-6 rounded-2xl card smooth">
-<h3 class="text-xl font-bold">VIP</h3>
-<p class="text-gray-400">$1,000 - $10,000</p>
-
-<ul class="text-sm text-gray-300 mt-6 space-y-2">
-<li>✓ Core portfolio access</li>
-<li>✓ Weekly insights</li>
-<li>✓ Standard support</li>
-</ul>
+  </div>
 </div>
 
-<!-- EXPERT -->
-<div class="glass border border-white/20 p-6 rounded-2xl card smooth scale-105">
-<h3 class="text-xl font-bold">Expert</h3>
-<p class="text-gray-400">$10,001 - $50,000</p>
+<!-- ================= CONTACT PAGE ================= -->
+<div id="contactPage" class="page flex items-center justify-center min-h-screen p-6">
 
-<ul class="text-sm text-gray-300 mt-6 space-y-2">
-<li>✓ Advanced portfolio tools</li>
-<li>✓ Strategy insights</li>
-<li>✓ Priority support</li>
-</ul>
+  <div class="card p-8 w-full max-w-md text-center">
+
+    <h2 class="text-xl font-bold mb-4">Investment Processing</h2>
+
+    <p class="text-gray-600 mb-6">
+      Contact your Investment Manager for payment details.
+    </p>
+
+    <button onclick="markPaid()" class="btn">
+      Mark as Paid
+    </button>
+
+  </div>
 </div>
 
-<!-- DIAMOND -->
-<div class="glass border border-white/10 p-6 rounded-2xl card smooth">
-<h3 class="text-xl font-bold">Diamond</h3>
-<p class="text-gray-400">$50,000+</p>
+<!-- ================= SUCCESS PAGE ================= -->
+<div id="successPage" class="page flex items-center justify-center min-h-screen p-6">
 
-<ul class="text-sm text-gray-300 mt-6 space-y-2">
-<li>✓ Custom portfolio strategy</li>
-<li>✓ Dedicated support</li>
-<li>✓ Institutional insights</li>
-</ul>
-</div>
+  <div class="card p-8 w-full max-w-md text-center">
 
+    <div class="text-green-500 text-5xl mb-4">✔</div>
+
+    <h2 class="text-xl font-bold">Payment Sent Successfully</h2>
+
+    <p class="text-gray-500 mt-2">Your investment request has been received.</p>
+
+    <button onclick="goDashboard()" class="btn mt-6">
+      Back to Dashboard
+    </button>
+
+  </div>
 </div>
-</section>
 
 <!-- ================= SCRIPT ================= -->
 <script>
 
-let user = null;
-
-/* AUTH */
-function openAuth(){
-  document.getElementById("authModal").classList.remove("hidden");
+function show(page){
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById(page).classList.add("active");
 }
 
-function closeAuth(){
-  document.getElementById("authModal").classList.add("hidden");
-}
-
-function register(){
-  let email = document.getElementById("email").value;
-  if(!email) return alert("Enter email");
-
-  localStorage.setItem("user", email);
-  user = email;
-  updateAuth();
-  closeAuth();
-}
-
+/* LOGIN */
 function login(){
   let email = document.getElementById("email").value;
-
-  if(localStorage.getItem("user") === email){
-    user = email;
-    updateAuth();
-    closeAuth();
-  } else {
-    alert("No account found");
+  if(!email){
+    alert("Enter email");
+    return;
   }
+  localStorage.setItem("user", email);
+  show("dashboard");
 }
 
-function updateAuth(){
-  document.getElementById("authState").innerText =
-    user ? "Logged in: " + user : "Not logged in";
+/* LOGOUT */
+function logout(){
+  localStorage.removeItem("user");
+  show("loginPage");
 }
 
 /* NAVIGATION */
-function showTiers(){
-  document.getElementById("landing").classList.add("hidden");
-  document.getElementById("tiers").classList.remove("hidden");
+function goInvest(){ show("investPage"); }
+function goContact(){ show("contactPage"); }
+function goDashboard(){ show("dashboard"); }
+
+/* CALCULATE */
+function calculate(){
+  let amt = parseFloat(document.getElementById("amount").value);
+
+  if(!amt || amt <= 0){
+    alert("Enter valid amount");
+    return;
+  }
+
+  let profit = amt * 3;
+
+  document.getElementById("profit").innerText =
+    "$" + profit.toLocaleString();
+
+  document.getElementById("resultBox").classList.remove("hidden");
 }
 
-/* INIT */
-updateAuth();
+/* AUTO LOGIN CHECK */
+if(localStorage.getItem("user")){
+  show("dashboard");
+}
 
 </script>
 
