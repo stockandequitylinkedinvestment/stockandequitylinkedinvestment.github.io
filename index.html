@@ -13,7 +13,6 @@ body {
   color: #fff;
 }
 
-/* Smooth transitions */
 .smooth {
   transition: all 0.3s ease;
 }
@@ -21,12 +20,52 @@ body {
 .card-hover:hover {
   transform: translateY(-8px);
 }
+
+/* slight glass effect */
+.glass {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+}
 </style>
 </head>
 
-<body class="min-h-screen flex flex-col items-center justify-center px-6">
+<body class="min-h-screen px-6 flex flex-col items-center justify-center">
 
-<!-- ================= LANDING PAGE ================= -->
+<!-- ================= AUTH ================= -->
+<div class="fixed top-4 right-4 glass border border-white/20 p-3 rounded-xl text-xs z-50">
+  <div id="authState">Not logged in</div>
+  <button onclick="openAuth()" class="mt-2 bg-white text-black px-3 py-1 rounded-lg text-xs">
+    Login / Register
+  </button>
+</div>
+
+<div id="authModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-6 z-50">
+  <div class="bg-black border border-white/20 rounded-2xl p-6 w-full max-w-sm">
+
+    <h2 class="text-xl font-bold mb-4">Account Access</h2>
+
+    <input id="email" type="email" placeholder="Email"
+      class="w-full p-3 mb-3 bg-white/5 border border-white/10 rounded-xl text-white">
+
+    <input id="password" type="password" placeholder="Password"
+      class="w-full p-3 mb-4 bg-white/5 border border-white/10 rounded-xl text-white">
+
+    <button onclick="register()" class="w-full bg-white text-black py-2 rounded-xl mb-2">
+      Register
+    </button>
+
+    <button onclick="login()" class="w-full bg-gray-700 text-white py-2 rounded-xl">
+      Login
+    </button>
+
+    <button onclick="closeAuth()" class="mt-4 text-gray-400 text-sm w-full">
+      Close
+    </button>
+
+  </div>
+</div>
+
+<!-- ================= LANDING ================= -->
 <section id="landing" class="text-center max-w-2xl">
 
   <h1 class="text-4xl md:text-5xl font-bold tracking-tight">
@@ -34,14 +73,8 @@ body {
   </h1>
 
   <p class="text-gray-400 mt-6 leading-relaxed">
-    A structured investment experience designed for portfolio growth, strategy planning, and financial scaling.
+    Structured investment experience for portfolio growth, strategy planning, and capital scaling.
   </p>
-
-  <div class="mt-10 bg-white/5 border border-white/10 rounded-2xl p-6">
-    <p class="text-sm text-gray-400">
-      Explore tier-based investment plans, market insights, and portfolio simulations before committing.
-    </p>
-  </div>
 
   <button onclick="showTiers()" 
     class="mt-10 px-8 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 smooth">
@@ -50,145 +83,195 @@ body {
 
 </section>
 
-<!-- ================= TIERS SECTION ================= -->
+<!-- ================= TIERS ================= -->
 <section id="tiers" class="hidden w-full max-w-6xl mt-20">
 
-  <h2 class="text-3xl font-bold text-center mb-12">
-    Choose Your Investment Tier
-  </h2>
+<h2 class="text-3xl font-bold text-center mb-12">Choose Investment Tier</h2>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-    <!-- VIP -->
-    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-hover smooth">
+<!-- VIP -->
+<div class="glass border border-white/10 rounded-2xl p-6 card-hover smooth">
+<h3 class="text-xl font-bold">VIP</h3>
+<p class="text-gray-400">$1,000 - $10,000</p>
 
-      <h3 class="text-xl font-bold text-white">VIP Level</h3>
-      <p class="text-gray-400 text-sm mt-1">$1,000 - $10,000</p>
+<ul class="text-sm text-gray-300 mt-6 space-y-2">
+<li>✓ Core portfolio</li>
+<li>✓ Weekly insights</li>
+<li>✓ Standard support</li>
+</ul>
 
-      <ul class="text-sm text-gray-300 mt-6 space-y-2">
-        <li>✓ Core portfolio access</li>
-        <li>✓ Weekly insights</li>
-        <li>✓ Standard support</li>
-      </ul>
+<button onclick="openCalc('VIP',1000,10000)"
+class="mt-6 w-full bg-white text-black py-2 rounded-xl">
+Invest VIP
+</button>
+</div>
 
-      <button onclick="openCalc('VIP', 1000, 10000)"
-        class="mt-6 w-full py-3 bg-gray-200 text-black rounded-xl font-semibold hover:bg-white smooth">
-        Invest VIP
-      </button>
-    </div>
+<!-- EXPERT -->
+<div class="glass border border-white/20 rounded-2xl p-6 card-hover smooth scale-105 relative">
 
-    <!-- EXPERT -->
-    <div class="bg-black border border-gray-500 rounded-2xl p-6 card-hover smooth scale-105 relative">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-black text-xs px-3 py-1 rounded-full">
+Most Popular
+</div>
 
-      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-black text-xs px-3 py-1 rounded-full">
-        Most Popular
-      </div>
+<h3 class="text-xl font-bold mt-4">Expert</h3>
+<p class="text-gray-400">$10,001 - $50,000</p>
 
-      <h3 class="text-xl font-bold text-white mt-4">Expert Level</h3>
-      <p class="text-gray-400 text-sm mt-1">$10,001 - $50,000</p>
+<ul class="text-sm text-gray-300 mt-6 space-y-2">
+<li>✓ Advanced tools</li>
+<li>✓ Priority support</li>
+<li>✓ Strategy upgrades</li>
+</ul>
 
-      <ul class="text-sm text-gray-300 mt-6 space-y-2">
-        <li>✓ Everything in VIP</li>
-        <li>✓ Advanced tools</li>
-        <li>✓ Priority support</li>
-      </ul>
+<button onclick="openCalc('Expert',10001,50000)"
+class="mt-6 w-full bg-gray-200 text-black py-2 rounded-xl">
+Invest Expert
+</button>
+</div>
 
-      <button onclick="openCalc('Expert', 10001, 50000)"
-        class="mt-6 w-full py-3 bg-white text-black rounded-xl font-semibold hover:bg-gray-200 smooth">
-        Invest Expert
-      </button>
-    </div>
+<!-- DIAMOND -->
+<div class="glass border border-white/10 rounded-2xl p-6 card-hover smooth">
 
-    <!-- DIAMOND -->
-    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-hover smooth">
+<h3 class="text-xl font-bold">Diamond</h3>
+<p class="text-gray-400">$50,001+</p>
 
-      <h3 class="text-xl font-bold text-white">Diamond Level</h3>
-      <p class="text-gray-400 text-sm mt-1">$50,001 - $100,000+</p>
+<ul class="text-sm text-gray-300 mt-6 space-y-2">
+<li>✓ Custom portfolio</li>
+<li>✓ Dedicated manager</li>
+<li>✓ Elite access</li>
+</ul>
 
-      <ul class="text-sm text-gray-300 mt-6 space-y-2">
-        <li>✓ Everything in Expert</li>
-        <li>✓ Custom strategies</li>
-        <li>✓ Dedicated manager</li>
-      </ul>
+<button onclick="openCalc('Diamond',50001,Infinity)"
+class="mt-6 w-full bg-white text-black py-2 rounded-xl">
+Invest Diamond
+</button>
+</div>
 
-      <button onclick="openCalc('Diamond', 50001, Infinity)"
-        class="mt-6 w-full py-3 bg-gray-200 text-black rounded-xl font-semibold hover:bg-white smooth">
-        Invest Diamond
-      </button>
-    </div>
-
-  </div>
+</div>
 </section>
 
-<!-- ================= MODAL ================= -->
-<div id="modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur flex items-center justify-center p-6">
+<!-- ================= INVEST MODAL ================= -->
+<div id="modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-6 z-50">
 
-  <div class="bg-black border border-white/20 rounded-2xl p-6 w-full max-w-md">
+<div class="bg-black border border-white/20 rounded-2xl p-6 w-full max-w-md">
 
-    <h3 id="tierTitle" class="text-xl font-bold mb-2"></h3>
-    <p id="tierRange" class="text-gray-400 text-sm mb-6"></p>
+<h3 id="tierTitle" class="text-xl font-bold"></h3>
+<p id="tierRange" class="text-gray-400 text-sm mb-4"></p>
 
-    <input id="amount" type="number"
-      class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white"
-      placeholder="Enter investment amount"
-      oninput="calc()">
+<input id="amount" type="number"
+class="w-full p-3 bg-white/5 border border-white/10 rounded-xl"
+placeholder="Enter amount" oninput="calc()">
 
-    <p id="error" class="text-red-400 text-xs mt-2 hidden">Invalid amount for this tier</p>
+<p id="error" class="text-red-400 text-xs mt-2 hidden">Invalid amount</p>
 
-    <div class="mt-6 p-4 bg-white/5 rounded-xl text-center">
-      <p class="text-gray-400 text-xs">Projected Return (x3 simulation)</p>
-      <h2 id="result" class="text-2xl font-bold mt-2">$0</h2>
-    </div>
+<div class="mt-6 text-center">
+<p class="text-gray-400 text-xs">Projected Return</p>
+<h2 id="result" class="text-2xl font-bold">$0</h2>
+</div>
 
-    <button onclick="closeModal()"
-      class="mt-6 w-full py-3 bg-white text-black rounded-xl font-semibold">
-      Close
-    </button>
+<button onclick="openPayment()"
+class="mt-6 w-full bg-white text-black py-2 rounded-xl">
+Proceed to Payment
+</button>
 
-  </div>
+<button onclick="closeModal()" class="mt-3 text-gray-400 text-sm w-full">
+Close
+</button>
+
+</div>
+</div>
+
+<!-- ================= PAYMENT ================= -->
+<div id="payModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center p-6 z-50">
+
+<div class="bg-black border border-white/20 rounded-2xl p-6 w-full max-w-md">
+
+<h2 class="text-xl font-bold mb-4">Payment Gateway</h2>
+
+<input placeholder="Card Number" class="w-full p-3 mb-3 bg-white/5 border border-white/10 rounded-xl">
+<input placeholder="Expiry" class="w-full p-3 mb-3 bg-white/5 border border-white/10 rounded-xl">
+<input placeholder="CVV" class="w-full p-3 mb-4 bg-white/5 border border-white/10 rounded-xl">
+
+<button onclick="confirmPayment()" class="w-full bg-white text-black py-2 rounded-xl">
+Confirm Payment
+</button>
+
+<button onclick="closePayment()" class="mt-3 text-gray-400 text-sm w-full">
+Cancel
+</button>
+
+</div>
 </div>
 
 <!-- ================= SCRIPT ================= -->
 <script>
 
-let min = 0;
-let max = Infinity;
+let min=0,max=Infinity;
+let user=null;
 
-function showTiers() {
-  document.getElementById("landing").classList.add("hidden");
-  document.getElementById("tiers").classList.remove("hidden");
+// AUTH
+function openAuth(){document.getElementById("authModal").classList.remove("hidden")}
+function closeAuth(){document.getElementById("authModal").classList.add("hidden")}
+
+function register(){
+user=document.getElementById("email").value;
+localStorage.setItem("user",user);
+updateAuth();
+closeAuth();
 }
 
-function openCalc(tier, minVal, maxVal) {
-  min = minVal;
-  max = maxVal;
-
-  document.getElementById("modal").classList.remove("hidden");
-  document.getElementById("tierTitle").innerText = tier + " Investment";
-  document.getElementById("tierRange").innerText =
-    max === Infinity ? "Minimum: $" + minVal : "$" + minVal + " - $" + maxVal;
-
-  document.getElementById("amount").value = minVal;
-  calc();
+function login(){
+let e=document.getElementById("email").value;
+if(localStorage.getItem("user")===e){
+user=e;updateAuth();closeAuth();
+}else alert("No account");
 }
 
-function closeModal() {
-  document.getElementById("modal").classList.add("hidden");
+function updateAuth(){
+document.getElementById("authState").innerText=
+user?"Logged in: "+user:"Not logged in";
 }
 
-function calc() {
-  let val = parseFloat(document.getElementById("amount").value);
-  let err = document.getElementById("error");
-  let res = document.getElementById("result");
+// NAV
+function showTiers(){
+document.getElementById("landing").classList.add("hidden");
+document.getElementById("tiers").classList.remove("hidden");
+}
 
-  if (isNaN(val) || val < min || val > max) {
-    err.classList.remove("hidden");
-    res.innerText = "$0";
-    return;
-  }
+// INVEST
+function openCalc(t,mx,mx2){
+min=m;max=mx2;
+document.getElementById("modal").classList.remove("hidden");
+document.getElementById("tierTitle").innerText=t;
+document.getElementById("amount").value=m;
+calc();
+}
 
-  err.classList.add("hidden");
-  res.innerText = "$" + (val * 3).toLocaleString();
+function closeModal(){document.getElementById("modal").classList.add("hidden")}
+
+function calc(){
+let v=parseFloat(document.getElementById("amount").value);
+if(isNaN(v)||v<min||v>max){
+document.getElementById("error").classList.remove("hidden");
+document.getElementById("result").innerText="$0";return;
+}
+document.getElementById("error").classList.add("hidden");
+document.getElementById("result").innerText="$"+(v*3).toLocaleString();
+}
+
+// PAYMENT
+function openPayment(){
+if(!user){alert("Login required");return}
+document.getElementById("payModal").classList.remove("hidden");
+}
+
+function closePayment(){
+document.getElementById("payModal").classList.add("hidden");
+}
+
+function confirmPayment(){
+alert("Payment processed successfully");
+closePayment();
 }
 
 </script>
