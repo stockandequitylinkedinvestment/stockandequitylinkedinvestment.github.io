@@ -9,24 +9,36 @@
 
 <style>
 body{
-  background: linear-gradient(135deg,#0b2a55,#0f3d6e,#09203a);
+  background: linear-gradient(135deg,#071a33,#0b2a55,#0f3d6e);
   color:white;
   font-family:sans-serif;
 }
 
 .card{
   background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: 0.3s ease;
+}
+
+.card:hover{
+  transform: translateY(-4px);
+  border-color: rgba(255,255,255,0.25);
 }
 
 .hidden{display:none;}
 
 .btn{
-  background:white;
+  background: linear-gradient(90deg,#ffffff,#dbeafe);
   color:#0b2a55;
   padding:10px 16px;
   border-radius:10px;
-  font-weight:600;
+  font-weight:700;
+  transition:0.3s;
+}
+
+.btn:hover{
+  transform: scale(1.03);
 }
 </style>
 </head>
@@ -36,31 +48,35 @@ body{
 <!-- ================= INTRO PAGE ================= -->
 <section id="intro" class="p-8 flex flex-col items-center justify-center min-h-screen text-center">
 
-  <h1 class="text-3xl font-bold mb-6">Stock & Equity Learning Platform</h1>
+  <h1 class="text-4xl font-bold mb-4 tracking-tight">
+    Stock & Equity Intelligence Platform
+  </h1>
 
-  <div class="card p-6 rounded-2xl max-w-2xl text-left">
+  <p class="text-blue-200 mb-6">
+    Structured market insight • Portfolio modeling • Equity strategy simulation
+  </p>
+
+  <div class="card p-6 rounded-2xl max-w-3xl text-left">
 
     <p class="mb-4">
-      👋 Have you heard much about how modern stock and equity-linked investments are being used to generate monthly income lately?
+      👋 Have you noticed how modern stock and equity-linked strategies are increasingly used to structure recurring income models within financial markets?
     </p>
 
     <p class="mb-4">
-      Many people assume the stock market is only for long-term growth, but there are structured strategies designed to show returns in shorter cycles.
-      These involve portfolio balancing, market timing analysis, and risk-adjusted allocation.
+      Today’s investment ecosystem is no longer limited to long-term holding. Institutional-style strategies use layered positioning, volatility cycles, and capital rotation techniques to optimize entry and exit timing across market conditions.
     </p>
 
     <p class="mb-4">
-      This platform helps you understand those mechanics in a simplified way so you can explore how capital growth strategies work.
+      This platform breaks down those structures into simplified models so you can understand how capital flow, allocation tiers, and market momentum interact in real-world financial environments.
     </p>
 
-    <p class="text-sm text-gray-200">
-      📊 Note: Stocks historically fluctuate based on market cycles, company performance, and global economic conditions.
-      Long-term investing has historically provided the most stable growth pattern.
+    <p class="text-sm text-blue-100">
+      📊 Market intelligence systems typically analyze liquidity, volatility compression, and sector rotation to identify potential expansion phases in asset pricing behavior.
     </p>
 
   </div>
 
-  <button onclick="goInfo()" class="btn mt-8">Proceed</button>
+  <button onclick="goInfo()" class="btn mt-8">Proceed to Market Intelligence</button>
 </section>
 
 <!-- ================= INFO PAGE ================= -->
@@ -68,21 +84,21 @@ body{
 
   <button onclick="back('intro')" class="mb-4 text-white">← Back</button>
 
-  <h2 class="text-2xl font-bold mb-4">Market Overview</h2>
+  <h2 class="text-2xl font-bold mb-4">Market Intelligence Overview</h2>
 
   <div class="card p-6 rounded-2xl space-y-4">
 
-    <p>📈 Stocks represent partial ownership in companies like Apple, Tesla, and Microsoft.</p>
+    <p>📈 Equities represent fractional ownership in publicly traded companies such as Apple, Microsoft, and Tesla.</p>
 
-    <p>💡 Equity-linked strategies aim to balance risk and return through structured allocation models.</p>
+    <p>💡 Advanced market strategies focus on cyclical entry positioning and structured capital deployment across volatility phases.</p>
 
-    <p>📊 Market behavior is influenced by supply, demand, earnings reports, and macroeconomic trends.</p>
+    <p>📊 Institutional investors often monitor liquidity flow, earnings momentum, and macroeconomic signals to position capital efficiently.</p>
 
-    <p>⚠️ Returns are never guaranteed and vary depending on market conditions.</p>
+    <p>🔷 Structured portfolio models allow capital distribution across multiple tiers of risk exposure and return potential.</p>
 
   </div>
 
-  <button onclick="goTiers()" class="btn mt-6">Proceed</button>
+  <button onclick="goTiers()" class="btn mt-6">View Investment Structures</button>
 
 </section>
 
@@ -91,26 +107,30 @@ body{
 
   <button onclick="back('info')" class="mb-4 text-white">← Back</button>
 
-  <h2 class="text-2xl font-bold mb-6">Investment Tiers</h2>
+  <h2 class="text-2xl font-bold mb-2">Capital Allocation Tiers</h2>
+  <p class="text-blue-200 mb-6">Select a structured investment model below</p>
 
   <div class="grid md:grid-cols-3 gap-4">
 
     <div class="card p-5 rounded-xl">
-      <h3 class="font-bold">Silver Tier</h3>
-      <p>$1,000 - $10,000</p>
-      <button onclick="openCalc('Silver',1000,10000)" class="btn mt-4">Select</button>
-    </div>
-
-    <div class="card p-5 rounded-xl border border-yellow-300">
-      <h3 class="font-bold">Gold Tier</h3>
-      <p>$10,000 - $50,000</p>
-      <button onclick="openCalc('Gold',10000,50000)" class="btn mt-4">Select</button>
+      <h3 class="font-bold text-white">Silver Tier</h3>
+      <p class="text-blue-200">$1,000 - $10,000</p>
+      <p class="text-sm mt-2 text-blue-100">Entry-level capital structure with balanced exposure.</p>
+      <button onclick="openCalc('Silver',1000,10000)" class="btn mt-4 w-full">Select Structure</button>
     </div>
 
     <div class="card p-5 rounded-xl border border-blue-300">
+      <h3 class="font-bold">Gold Tier</h3>
+      <p class="text-blue-200">$10,000 - $50,000</p>
+      <p class="text-sm mt-2 text-blue-100">Enhanced allocation with strategic market positioning.</p>
+      <button onclick="openCalc('Gold',10000,50000)" class="btn mt-4 w-full">Select Structure</button>
+    </div>
+
+    <div class="card p-5 rounded-xl border border-cyan-300">
       <h3 class="font-bold">Diamond Tier</h3>
-      <p>$50,000+</p>
-      <button onclick="openCalc('Diamond',50000,999999)" class="btn mt-4">Select</button>
+      <p class="text-blue-200">$50,000+</p>
+      <p class="text-sm mt-2 text-blue-100">High-capital institutional style allocation model.</p>
+      <button onclick="openCalc('Diamond',50000,999999)" class="btn mt-4 w-full">Select Structure</button>
     </div>
 
   </div>
@@ -122,40 +142,45 @@ body{
 
   <button onclick="back('tiers')" class="mb-4 text-white">← Back</button>
 
-  <h2 id="tierTitle" class="text-xl font-bold mb-4"></h2>
+  <h2 id="tierTitle" class="text-xl font-bold mb-2"></h2>
+  <p class="text-blue-200 mb-4">Simulated capital growth model (multi-cycle projection)</p>
 
   <div class="card p-6 rounded-2xl max-w-md">
 
     <input id="amount" type="number"
       class="w-full p-3 text-black rounded"
-      placeholder="Enter investment amount"
+      placeholder="Enter capital allocation"
       oninput="calculate()">
 
-    <p id="result" class="mt-4 text-green-300 font-bold"></p>
+    <div class="mt-4 p-4 bg-white/5 rounded-xl">
+      <p class="text-sm text-blue-200">Projected Growth Model</p>
+      <p id="result" class="text-green-300 font-bold text-xl mt-1"></p>
+      <p class="text-xs text-blue-200 mt-1">Based on 6-cycle structured expansion model</p>
+    </div>
 
     <button onclick="goContact()" class="btn mt-6 w-full">
-      Proceed
+      Continue Analysis
     </button>
 
   </div>
 
 </section>
 
-<!-- ================= CONTACT MANAGER ================= -->
+<!-- ================= CONTACT ================= -->
 <section id="contact" class="hidden p-8 text-center">
 
   <button onclick="back('calc')" class="mb-4 text-white">← Back</button>
 
-  <h2 class="text-xl font-bold mb-4">Contact Investment Manager</h2>
+  <h2 class="text-xl font-bold mb-4">Capital Deployment Process</h2>
 
   <div class="card p-6 rounded-2xl max-w-xl mx-auto">
 
     <p class="mb-4">
-      To proceed with this investment strategy, please contact your assigned investment manager for payment coordination and account setup.
+      To proceed with this structured allocation model, contact your assigned investment manager for execution guidance and capital processing instructions.
     </p>
 
-    <p class="text-gray-200 text-sm">
-      Your selected tier and projected returns will be recorded for reference.
+    <p class="text-blue-200 text-sm">
+      All selected tier configurations and projected outputs have been logged for review within your session.
     </p>
 
   </div>
@@ -166,7 +191,6 @@ body{
 
 let min=0,max=0,tier="";
 
-// NAVIGATION
 function goInfo(){
   document.getElementById("intro").classList.add("hidden");
   document.getElementById("info").classList.remove("hidden");
@@ -185,10 +209,9 @@ function openCalc(t,mn,mx){
   document.getElementById("tiers").classList.add("hidden");
   document.getElementById("calc").classList.remove("hidden");
 
-  document.getElementById("tierTitle").innerText = t + " Tier";
+  document.getElementById("tierTitle").innerText = t + " Tier Model";
 }
 
-// 6X CALCULATION
 function calculate(){
   let v = Number(document.getElementById("amount").value);
 
@@ -198,7 +221,7 @@ function calculate(){
   }
 
   document.getElementById("result").innerText =
-    "Projected Return (6x): $" + (v * 6).toLocaleString();
+    "$" + (v * 6).toLocaleString();
 }
 
 function goContact(){
@@ -206,9 +229,7 @@ function goContact(){
   document.getElementById("contact").classList.remove("hidden");
 }
 
-// BACK FUNCTION
 function back(page){
-
   document.getElementById("intro").classList.add("hidden");
   document.getElementById("info").classList.add("hidden");
   document.getElementById("tiers").classList.add("hidden");
