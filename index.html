@@ -3,32 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stock & Equity Linked Investments</title>
+<title>Equity Investment Platform</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
 body {
-  background: linear-gradient(120deg, #f8fafc, #e2e8f0);
-  color: #0f172a;
+  background: linear-gradient(135deg, #0f172a, #1e293b, #0b132b);
+  min-height: 100vh;
+  color: white;
+  font-family: Arial;
 }
-
-/* Watermark background */
-.watermark {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 80px;
-  font-weight: 900;
-  opacity: 0.05;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-/* Page system */
-.page { display: none; }
-.active { display: block; }
 
 .card {
   transition: 0.3s ease;
@@ -36,157 +21,206 @@ body {
 .card:hover {
   transform: translateY(-6px);
 }
+
+.hiddenPage { display: none; }
+
+.glass {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+}
 </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center px-6">
+<body>
 
-<!-- WATERMARK -->
-<div class="watermark">STOCK & EQUITY INVESTMENT</div>
-
-<!-- ================= NAV ================= -->
-<div class="fixed top-4 right-4 text-sm">
-  <button onclick="go('login')" class="bg-white border px-3 py-1 rounded-xl shadow">Login</button>
-  <button onclick="go('home')" class="ml-2 bg-slate-900 text-white px-3 py-1 rounded-xl">Home</button>
+<!-- ================= TOP BAR ================= -->
+<div class="fixed top-4 left-4 glass px-4 py-2 rounded-xl flex gap-3 items-center text-sm">
+  <span id="userState">Not logged in</span>
+  <button onclick="logout()" id="logoutBtn" class="hidden bg-white text-black px-3 py-1 rounded-lg">
+    Logout
+  </button>
 </div>
 
 <!-- ================= LOGIN PAGE ================= -->
-<section id="login" class="page active text-center max-w-sm">
+<div id="loginPage" class="flex flex-col items-center justify-center min-h-screen text-center px-6">
 
-  <h1 class="text-2xl font-bold mb-6">Investor Login</h1>
+  <h1 class="text-4xl font-bold mb-4">Stock & Equity Investment Portal</h1>
+  <p class="text-gray-300 mb-8">Secure access required</p>
 
-  <input id="email" type="email" placeholder="Email"
-    class="w-full p-3 mb-3 border rounded-xl">
+  <input id="email" type="email" placeholder="Enter Email"
+    class="p-3 rounded-xl text-black w-72 mb-3">
 
-  <button onclick="login()"
-    class="w-full bg-slate-900 text-white py-3 rounded-xl">
-    Continue
+  <button onclick="login()" class="bg-white text-black px-6 py-2 rounded-xl">
+    Login
   </button>
 
-</section>
+</div>
 
-<!-- ================= HOME / TIERS ================= -->
-<section id="home" class="page text-center max-w-5xl">
+<!-- ================= HOME PAGE ================= -->
+<div id="homePage" class="hiddenPage p-10">
 
-  <h1 class="text-4xl font-bold mb-2">Investment Tiers</h1>
-  <p class="text-slate-500 mb-10">Choose a structured investment plan</p>
+  <div class="text-center mb-10">
+    <h1 class="text-4xl font-bold">Stock & Equity Investment Platform</h1>
+    <p class="text-gray-300 mt-2">Select your investment tier</p>
+  </div>
 
-  <div class="grid md:grid-cols-3 gap-6">
+  <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
 
-    <div class="card bg-white border p-6 rounded-2xl shadow">
-      <h2 class="font-bold text-xl">VIP</h2>
-      <p class="text-slate-500">$1,000 - $10,000</p>
-      <button onclick="startInvest(1000)"
-        class="mt-6 w-full bg-slate-900 text-white py-2 rounded-xl">
-        Invest
+    <!-- VIP -->
+    <div class="glass p-6 rounded-2xl card">
+      <h2 class="text-xl font-bold">VIP Tier</h2>
+      <p class="text-gray-300">$1,000 - $10,000</p>
+      <button onclick="openInvest('VIP',1000,10000)" class="mt-5 bg-white text-black w-full py-2 rounded-xl">
+        Select
       </button>
     </div>
 
-    <div class="card bg-white border p-6 rounded-2xl shadow scale-105">
-      <h2 class="font-bold text-xl">Expert</h2>
-      <p class="text-slate-500">$10,000 - $50,000</p>
-      <button onclick="startInvest(10000)"
-        class="mt-6 w-full bg-slate-900 text-white py-2 rounded-xl">
-        Invest
+    <!-- EXPERT -->
+    <div class="glass p-6 rounded-2xl card">
+      <h2 class="text-xl font-bold">Expert Tier</h2>
+      <p class="text-gray-300">$10,000 - $50,000</p>
+      <button onclick="openInvest('Expert',10000,50000)" class="mt-5 bg-white text-black w-full py-2 rounded-xl">
+        Select
       </button>
     </div>
 
-    <div class="card bg-white border p-6 rounded-2xl shadow">
-      <h2 class="font-bold text-xl">Diamond</h2>
-      <p class="text-slate-500">$50,000+</p>
-      <button onclick="startInvest(50000)"
-        class="mt-6 w-full bg-slate-900 text-white py-2 rounded-xl">
-        Invest
+    <!-- DIAMOND -->
+    <div class="glass p-6 rounded-2xl card">
+      <h2 class="text-xl font-bold">Diamond Tier</h2>
+      <p class="text-gray-300">$50,000+</p>
+      <button onclick="openInvest('Diamond',50000,999999)" class="mt-5 bg-white text-black w-full py-2 rounded-xl">
+        Select
       </button>
     </div>
 
   </div>
-</section>
+</div>
+
+<!-- ================= INVEST PAGE ================= -->
+<div id="investPage" class="hiddenPage flex flex-col items-center justify-center min-h-screen px-6 text-center">
+
+  <h2 id="tierName" class="text-3xl font-bold mb-2"></h2>
+  <p class="text-gray-300 mb-4">Enter investment amount</p>
+
+  <input id="amount" type="number"
+    class="p-3 rounded-xl text-black w-72">
+
+  <button onclick="calculate()" class="mt-4 bg-white text-black px-6 py-2 rounded-xl">
+    Calculate Profit
+  </button>
+
+  <p id="error" class="text-red-400 mt-3 hidden">Invalid amount</p>
+
+</div>
 
 <!-- ================= PROFIT PAGE ================= -->
-<section id="profit" class="page text-center max-w-md">
+<div id="profitPage" class="hiddenPage flex flex-col items-center justify-center min-h-screen text-center px-6">
 
-  <h1 class="text-2xl font-bold">Investment Summary</h1>
+  <h2 class="text-3xl font-bold mb-3">Projected Return</h2>
+  <div id="profitBox" class="text-4xl font-bold text-green-400 mb-6"></div>
 
-  <div class="mt-6 bg-white border rounded-2xl p-6 shadow">
-    <p>Invested Amount</p>
-    <h2 id="amount" class="text-2xl font-bold">$0</h2>
-
-    <p class="mt-4">Projected Return (3x)</p>
-    <h2 id="profitAmount" class="text-3xl font-bold text-green-600">$0</h2>
-  </div>
-
-  <button onclick="go('manager')"
-    class="mt-6 w-full bg-slate-900 text-white py-3 rounded-xl">
+  <button onclick="goToContact()" class="bg-white text-black px-6 py-2 rounded-xl">
     Continue
   </button>
 
-</section>
+</div>
 
-<!-- ================= MANAGER PAGE ================= -->
-<section id="manager" class="page text-center max-w-md">
+<!-- ================= CONTACT PAGE ================= -->
+<div id="contactPage" class="hiddenPage flex flex-col items-center justify-center min-h-screen text-center px-6">
 
-  <h1 class="text-xl font-bold">Contact Investment Manager</h1>
+  <h2 class="text-2xl font-bold mb-3">Contact Your Investment Manager</h2>
+  <p class="text-gray-300 mb-6">Payment details will be provided by your assigned advisor.</p>
 
-  <p class="text-slate-500 mt-4">
-    Please contact your assigned investment manager for payment instructions and allocation processing.
-  </p>
-
-  <button onclick="go('paid')"
-    class="mt-6 w-full bg-slate-900 text-white py-3 rounded-xl">
-    Paid
+  <button onclick="markPaid()" class="bg-white text-black px-6 py-2 rounded-xl">
+    I Have Paid
   </button>
 
-</section>
+</div>
 
 <!-- ================= SUCCESS PAGE ================= -->
-<section id="paid" class="page text-center max-w-md">
+<div id="successPage" class="hiddenPage flex flex-col items-center justify-center min-h-screen text-center px-6">
 
-  <div class="text-green-600 text-5xl">✔</div>
+  <div class="text-green-400 text-5xl mb-4">✔</div>
+  <h2 class="text-3xl font-bold">Payment Received</h2>
+  <p class="text-gray-300 mt-2">Your request has been successfully submitted.</p>
 
-  <h1 class="text-2xl font-bold mt-4">Payment Received</h1>
+</div>
 
-  <p class="text-slate-500 mt-2">
-    Your investment request has been successfully processed.
-  </p>
-
-  <button onclick="go('home')"
-    class="mt-6 w-full bg-slate-900 text-white py-3 rounded-xl">
-    Back to Home
-  </button>
-
-</section>
-
+<!-- ================= SCRIPT ================= -->
 <script>
 
-let currentAmount = 0;
+let user = null;
+let tier = "";
+let min = 0;
+let max = 0;
 
-function go(page){
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById(page).classList.add("active");
+function show(page){
+  document.querySelectorAll(".hiddenPage").forEach(p => p.style.display = "none");
+  document.getElementById(page).style.display = "flex";
 }
 
-/* LOGIN */
+// LOGIN
 function login(){
-  let email = document.getElementById("email").value;
+  const email = document.getElementById("email").value;
 
   if(!email){
     alert("Enter email");
     return;
   }
 
-  localStorage.setItem("user", email);
-  go("home");
+  user = email;
+  document.getElementById("userState").innerText = "Logged in: " + email;
+  document.getElementById("logoutBtn").classList.remove("hidden");
+
+  show("homePage");
 }
 
-/* INVEST */
-function startInvest(amount){
-  currentAmount = amount;
+function logout(){
+  user = null;
+  document.getElementById("userState").innerText = "Not logged in";
+  document.getElementById("logoutBtn").classList.add("hidden");
 
-  document.getElementById("amount").innerText = "$" + amount.toLocaleString();
-  document.getElementById("profitAmount").innerText = "$" + (amount * 3).toLocaleString();
+  show("loginPage");
+}
 
-  go("profit");
+// INVEST FLOW
+function openInvest(t,mn,mx){
+  if(!user){alert("Login required");return;}
+
+  tier = t;
+  min = mn;
+  max = mx;
+
+  document.getElementById("tierName").innerText = t + " Tier";
+  document.getElementById("amount").value = mn;
+
+  show("investPage");
+}
+
+function calculate(){
+  let v = parseFloat(document.getElementById("amount").value);
+
+  if(isNaN(v) || v < min || v > max){
+    document.getElementById("error").classList.remove("hidden");
+    return;
+  }
+
+  document.getElementById("error").classList.add("hidden");
+
+  let profit = v * 3;
+
+  document.getElementById("profitBox").innerText = "$" + profit.toLocaleString();
+
+  show("profitPage");
+}
+
+// NEXT STEPS
+function goToContact(){
+  show("contactPage");
+}
+
+function markPaid(){
+  show("successPage");
 }
 
 </script>
