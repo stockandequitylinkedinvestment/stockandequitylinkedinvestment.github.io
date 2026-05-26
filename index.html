@@ -3,140 +3,152 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Equity Investment Platform</title>
+<title>Stock & Equity Platform</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
 body {
-  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-  color: #0f172a;
+  background: linear-gradient(135deg, #0a1f44, #102a56, #0b3a6a);
+  color: white;
+  font-family: sans-serif;
 }
 
-.card { transition: 0.3s; }
-.card:hover { transform: translateY(-6px); }
+.glass {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+}
 
-.hidden { display: none; }
+.hidden { display:none; }
 </style>
 </head>
 
-<body>
+<body class="min-h-screen">
 
-<!-- ================= LOGIN ================= -->
-<section id="loginPage" class="flex items-center justify-center min-h-screen">
+<!-- ================= LOGIN PAGE ================= -->
+<div id="loginPage" class="flex flex-col items-center justify-center min-h-screen p-6">
 
-<div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm">
+  <h1 class="text-4xl font-bold mb-6">Stock & Equity Investment</h1>
 
-<h1 class="text-2xl font-bold mb-4">Login</h1>
+  <p class="text-center text-white/70 max-w-md mb-8">
+    Join a structured investment system with tier-based portfolio growth.
+  </p>
 
-<input id="loginEmail" type="email" placeholder="Email"
-class="w-full p-3 border rounded-lg mb-3">
+  <div class="glass p-6 rounded-2xl w-full max-w-sm">
 
-<button onclick="login()" class="w-full bg-blue-600 text-white py-2 rounded-lg">
-Login
-</button>
+    <input id="email" type="email" placeholder="Email"
+      class="w-full p-3 mb-3 rounded bg-white/10 border border-white/20">
 
+    <input id="password" type="password" placeholder="Password"
+      class="w-full p-3 mb-3 rounded bg-white/10 border border-white/20">
+
+    <button onclick="login()"
+      class="w-full bg-white text-blue-900 font-bold py-2 rounded">
+      Login / Register
+    </button>
+
+  </div>
 </div>
 
-</section>
-
-<!-- ================= APP ================= -->
-<div id="app" class="hidden">
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboard" class="hidden">
 
 <!-- TOP BAR -->
-<div class="flex justify-between items-center p-4 bg-white shadow">
+<div class="flex justify-between items-center p-4">
+  <h2 class="font-bold">Investment Dashboard</h2>
 
-<h2 class="font-bold">Equity Platform</h2>
+  <div class="relative">
+    <button onclick="toggleMenu()">☰</button>
 
-<div class="flex gap-3 items-center">
-
-<!-- MENU -->
-<div onclick="toggleMenu()" class="cursor-pointer text-xl">☰</div>
-
-</div>
-</div>
-
-<!-- MENU PANEL -->
-<div id="menu" class="hidden absolute right-4 top-14 bg-white shadow-lg rounded-lg w-48 p-3">
-
-<p class="font-bold mb-2">Profile</p>
-<p id="profileInfo" class="text-sm mb-2"></p>
-
-<hr class="my-2">
-
-<button onclick="logout()" class="text-red-500 text-sm">Logout</button>
-
+    <div id="menu" class="hidden absolute right-0 mt-2 glass p-3 rounded w-40 text-sm">
+      <button onclick="openProfile()" class="block w-full text-left">Profile</button>
+      <button onclick="logout()" class="block w-full text-left mt-2 text-red-300">Logout</button>
+    </div>
+  </div>
 </div>
 
-<!-- HOME -->
-<section id="home" class="p-6">
+<!-- Tiers -->
+<div class="grid md:grid-cols-3 gap-4 p-6">
 
-<h1 class="text-3xl font-bold mb-2">Welcome to Equity Investment</h1>
-
-<p class="text-gray-600 mb-6">
-A structured investment platform designed for capital growth and portfolio expansion.
-</p>
-
-<button onclick="showTiers()" class="bg-black text-white px-6 py-2 rounded-lg">
-Enter Investment
-</button>
-
-</section>
-
-<!-- TIERS -->
-<section id="tiers" class="hidden p-6 grid md:grid-cols-3 gap-6">
-
-<div onclick="selectTier('Silver',1000)" class="card bg-white p-6 rounded-xl shadow cursor-pointer">
-<h2 class="font-bold text-xl">Silver</h2>
+<!-- SILVER -->
+<div class="glass p-6 rounded-xl">
+<h3>Silver Tier</h3>
 <p>$1,000 - $10,000</p>
+<button onclick="openInvest('Silver',1000,10000)" class="mt-4 bg-white text-blue-900 px-4 py-2 rounded">
+Invest
+</button>
 </div>
 
-<div onclick="selectTier('Gold',10000)" class="card bg-yellow-100 p-6 rounded-xl shadow cursor-pointer">
-<h2 class="font-bold text-xl">Gold</h2>
+<!-- GOLD -->
+<div class="glass p-6 rounded-xl border border-yellow-300">
+<h3>Gold Tier</h3>
 <p>$10,000 - $50,000</p>
+<button onclick="openInvest('Gold',10000,50000)" class="mt-4 bg-yellow-300 text-black px-4 py-2 rounded">
+Invest
+</button>
 </div>
 
-<div onclick="selectTier('Diamond',50000)" class="card bg-blue-100 p-6 rounded-xl shadow cursor-pointer">
-<h2 class="font-bold text-xl">Diamond</h2>
+<!-- DIAMOND -->
+<div class="glass p-6 rounded-xl border border-blue-300">
+<h3>Diamond Tier</h3>
 <p>$50,000+</p>
+<button onclick="openInvest('Diamond',50000,999999)" class="mt-4 bg-blue-300 text-black px-4 py-2 rounded">
+Invest
+</button>
 </div>
 
-</section>
+</div>
+</div>
 
-<!-- INVEST -->
-<section id="investPage" class="hidden p-6">
+<!-- ================= INVEST ================= -->
+<div id="investPage" class="hidden p-6">
 
-<h2 id="tierTitle" class="text-2xl font-bold"></h2>
+<h2 id="tierName" class="text-2xl font-bold"></h2>
 
-<input id="amount" type="number" placeholder="Enter amount"
-class="border p-3 w-full mt-4">
+<input id="amount" type="number" class="p-3 mt-4 text-black w-full rounded" placeholder="Enter amount">
 
-<button onclick="calculate()" class="mt-4 bg-black text-white px-6 py-2 rounded-lg">
-Calculate
+<p id="profit" class="mt-4 text-green-300 font-bold"></p>
+
+<button onclick="nextStep()" class="mt-4 bg-white text-blue-900 px-4 py-2 rounded">
+Continue
 </button>
 
-<p id="profit" class="mt-4 font-bold"></p>
+</div>
 
-<button onclick="nextStep()" class="hidden mt-4 bg-green-600 text-white px-6 py-2 rounded-lg" id="nextBtn">
-Proceed
-</button>
+<!-- ================= CONTACT ================= -->
+<div id="contactPage" class="hidden p-6 text-center">
 
-</section>
+<h2 class="text-xl font-bold">Contact Investment Manager</h2>
+<p class="mt-4">Please contact your assigned manager for payment details.</p>
 
-<!-- PAYMENT STEP -->
-<section id="paymentPage" class="hidden p-6 text-center">
-
-<h2 class="text-xl font-bold mb-4">Contact your Investment Manager for payment details</h2>
-
-<button onclick="markPaid()" class="bg-black text-white px-6 py-2 rounded-lg">
+<button onclick="paid()" class="mt-6 bg-green-400 text-black px-4 py-2 rounded">
 I Have Paid
 </button>
 
-<p id="paidMsg" class="mt-4 text-green-600 font-bold hidden">
-✔ Payment Received Successfully
-</p>
+</div>
 
-</section>
+<!-- ================= SUCCESS ================= -->
+<div id="successPage" class="hidden p-6 text-center">
+
+<h2 class="text-green-300 text-2xl font-bold">✔ Payment Confirmed</h2>
+<p class="mt-4">Your investment has been recorded successfully.</p>
+
+<button onclick="backToDashboard()" class="mt-6 bg-white text-blue-900 px-4 py-2 rounded">
+Back to Dashboard
+</button>
+
+</div>
+
+<!-- ================= PROFILE ================= -->
+<div id="profilePage" class="hidden p-6">
+
+<h2 class="text-xl font-bold">Profile</h2>
+
+<div id="profileData" class="mt-4 glass p-4 rounded"></div>
+
+<button onclick="backDashboard()" class="mt-6 bg-white text-blue-900 px-4 py-2 rounded">
+Back
+</button>
 
 </div>
 
@@ -144,69 +156,99 @@ I Have Paid
 
 let user = null;
 let tier = "";
-let amount = 0;
-let profit = 0;
+let investment = 0;
 
 // LOGIN
 function login(){
-user = document.getElementById("loginEmail").value;
-if(!user){alert("Enter email");return;}
-document.getElementById("loginPage").classList.add("hidden");
-document.getElementById("app").classList.remove("hidden");
+  const email = document.getElementById("email").value;
+  const pass = document.getElementById("password").value;
+
+  if(!email || !pass){
+    alert("Fill fields");
+    return;
+  }
+
+  user = email;
+  localStorage.setItem("user", email);
+
+  document.getElementById("loginPage").classList.add("hidden");
+  document.getElementById("dashboard").classList.remove("hidden");
 }
 
 // MENU
 function toggleMenu(){
-document.getElementById("menu").classList.toggle("hidden");
+  document.getElementById("menu").classList.toggle("hidden");
 }
 
-// NAV
-function showTiers(){
-document.getElementById("home").classList.add("hidden");
-document.getElementById("tiers").classList.remove("hidden");
+// INVEST
+function openInvest(t, min, max){
+  tier = t;
+  document.getElementById("dashboard").classList.add("hidden");
+  document.getElementById("investPage").classList.remove("hidden");
+
+  document.getElementById("tierName").innerText = t + " Tier";
 }
 
-// SELECT TIER
-function selectTier(t, min){
-tier = t;
-document.getElementById("tiers").classList.add("hidden");
-document.getElementById("investPage").classList.remove("hidden");
-document.getElementById("tierTitle").innerText = t + " Tier";
-document.getElementById("amount").value = min;
-}
-
-// CALC
-function calculate(){
-amount = parseFloat(document.getElementById("amount").value);
-profit = amount * 3;
-
-document.getElementById("profit").innerText =
-"Projected Return: $" + profit;
-
-document.getElementById("nextBtn").classList.remove("hidden");
-}
+// CALC PROFIT
+document.getElementById("amount")?.addEventListener("input", function(){
+  investment = Number(this.value);
+  document.getElementById("profit").innerText =
+    "Projected Return: $" + (investment * 3);
+});
 
 // NEXT STEP
 function nextStep(){
-document.getElementById("investPage").classList.add("hidden");
-document.getElementById("paymentPage").classList.remove("hidden");
+  document.getElementById("investPage").classList.add("hidden");
+  document.getElementById("contactPage").classList.remove("hidden");
 }
 
-// PAYMENT
-function markPaid(){
-document.getElementById("paidMsg").classList.remove("hidden");
-updateProfile();
+// PAID
+function paid(){
+  document.getElementById("contactPage").classList.add("hidden");
+  document.getElementById("successPage").classList.remove("hidden");
+
+  saveData();
+}
+
+// SAVE
+function saveData(){
+  localStorage.setItem("investment", JSON.stringify({
+    user,
+    tier,
+    investment,
+    return: investment * 3
+  }));
 }
 
 // PROFILE
-function updateProfile(){
-document.getElementById("profileInfo").innerText =
-"Tier: " + tier + "\nInvested: $" + amount + "\nReturn: $" + profit;
+function openProfile(){
+  document.getElementById("dashboard").classList.add("hidden");
+  document.getElementById("profilePage").classList.remove("hidden");
+
+  const data = JSON.parse(localStorage.getItem("investment"));
+
+  document.getElementById("profileData").innerHTML = `
+    Email: ${user}<br>
+    Tier: ${data?.tier || "None"}<br>
+    Invested: $${data?.investment || 0}<br>
+    Return: $${data?.return || 0}
+  `;
+}
+
+// NAV BACK
+function backToDashboard(){
+  location.reload();
+}
+
+function backDashboard(){
+  document.getElementById("profilePage").classList.add("hidden");
+  document.getElementById("dashboard").classList.remove("hidden");
 }
 
 // LOGOUT
 function logout(){
-location.reload();
+  localStorage.clear();
+  location.reload();
 }
 
 </script>
