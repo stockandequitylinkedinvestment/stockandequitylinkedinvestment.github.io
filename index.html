@@ -3,104 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock & Equity Linked Investments</title>
 
-<title>Investment Tiers</title>
-
-<!-- Tailwind CSS CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-/* Smooth animations for hover effects */
-.card-hover {
+body {
+  background: #000;
+  color: #fff;
+}
+
+/* Smooth transitions */
+.smooth {
   transition: all 0.3s ease;
 }
 
 .card-hover:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  transform: translateY(-8px);
 }
 </style>
 </head>
 
-<body class="bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white min-h-screen">
+<body class="min-h-screen flex flex-col items-center justify-center px-6">
 
-<!-- Background Glow -->
-<div class="absolute inset-0 opacity-30">
-  <div class="absolute top-0 left-1/2 w-[600px] h-[600px] bg-blue-600 rounded-full blur-[140px]"></div>
-  <div class="absolute bottom-0 right-1/2 w-[500px] h-[500px] bg-indigo-600 rounded-full blur-[140px]"></div>
-</div>
+<!-- ================= LANDING PAGE ================= -->
+<section id="landing" class="text-center max-w-2xl">
 
-<!-- Section -->
-<section class="relative z-10 py-20 px-6">
+  <h1 class="text-4xl md:text-5xl font-bold tracking-tight">
+    Stock & Equity <span class="text-gray-400">Investment Platform</span>
+  </h1>
 
-  <!-- Header -->
-  <div class="text-center mb-14">
-    <h1 class="text-4xl md:text-5xl font-bold">Investment Tiers</h1>
-    <p class="text-gray-400 mt-3">Choose a plan that matches your investment ambition</p>
+  <p class="text-gray-400 mt-6 leading-relaxed">
+    A structured investment experience designed for portfolio growth, strategy planning, and financial scaling.
+  </p>
+
+  <div class="mt-10 bg-white/5 border border-white/10 rounded-2xl p-6">
+    <p class="text-sm text-gray-400">
+      Explore tier-based investment plans, market insights, and portfolio simulations before committing.
+    </p>
   </div>
 
-  <!-- Cards Container -->
-  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+  <button onclick="showTiers()" 
+    class="mt-10 px-8 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 smooth">
+    Start Investing
+  </button>
 
-    <!-- CARD 1: VIP -->
-    <div class="card-hover bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
-      <h2 class="text-2xl font-semibold">VIP</h2>
-      <p class="text-blue-400 mt-2">$1,000 - $10,000</p>
+</section>
 
-      <ul class="text-gray-400 mt-6 space-y-2 text-sm">
-        <li>✔ Core portfolio access</li>
-        <li>✔ Weekly market insights</li>
-        <li>✔ Standard support</li>
-        <li>✔ Secure dashboard</li>
+<!-- ================= TIERS SECTION ================= -->
+<section id="tiers" class="hidden w-full max-w-6xl mt-20">
+
+  <h2 class="text-3xl font-bold text-center mb-12">
+    Choose Your Investment Tier
+  </h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+    <!-- VIP -->
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-hover smooth">
+
+      <h3 class="text-xl font-bold text-white">VIP Level</h3>
+      <p class="text-gray-400 text-sm mt-1">$1,000 - $10,000</p>
+
+      <ul class="text-sm text-gray-300 mt-6 space-y-2">
+        <li>✓ Core portfolio access</li>
+        <li>✓ Weekly insights</li>
+        <li>✓ Standard support</li>
       </ul>
 
-      <button class="mt-8 w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-500 transition">
-        Start Investing
+      <button onclick="openCalc('VIP', 1000, 10000)"
+        class="mt-6 w-full py-3 bg-gray-200 text-black rounded-xl font-semibold hover:bg-white smooth">
+        Invest VIP
       </button>
     </div>
 
-    <!-- CARD 2: EXPERT (MOST POPULAR) -->
-    <div class="card-hover relative bg-gradient-to-b from-blue-600/20 to-gray-900 border border-blue-500 rounded-2xl p-8 text-center scale-105">
+    <!-- EXPERT -->
+    <div class="bg-black border border-gray-500 rounded-2xl p-6 card-hover smooth scale-105 relative">
 
-      <!-- Badge -->
-      <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-500 text-xs px-4 py-1 rounded-full">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-black text-xs px-3 py-1 rounded-full">
         Most Popular
       </div>
 
-      <h2 class="text-2xl font-semibold mt-4">Expert</h2>
-      <p class="text-blue-300 mt-2">$10,001 - $50,000</p>
+      <h3 class="text-xl font-bold text-white mt-4">Expert Level</h3>
+      <p class="text-gray-400 text-sm mt-1">$10,001 - $50,000</p>
 
-      <ul class="text-gray-300 mt-6 space-y-2 text-sm">
-        <li>✔ Everything in VIP</li>
-        <li>✔ Advanced algorithmic tools</li>
-        <li>✔ 1-on-1 quarterly consultation</li>
-        <li>✔ Priority support</li>
+      <ul class="text-sm text-gray-300 mt-6 space-y-2">
+        <li>✓ Everything in VIP</li>
+        <li>✓ Advanced tools</li>
+        <li>✓ Priority support</li>
       </ul>
 
-      <button class="mt-8 w-full py-3 rounded-xl bg-blue-500 hover:bg-blue-400 transition font-semibold">
-        Go Expert
+      <button onclick="openCalc('Expert', 10001, 50000)"
+        class="mt-6 w-full py-3 bg-white text-black rounded-xl font-semibold hover:bg-gray-200 smooth">
+        Invest Expert
       </button>
     </div>
 
-    <!-- CARD 3: DIAMOND -->
-    <div class="card-hover bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
-      <h2 class="text-2xl font-semibold">Diamond Elite</h2>
-      <p class="text-purple-400 mt-2">$50,001 - $100,000+</p>
+    <!-- DIAMOND -->
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-hover smooth">
 
-      <ul class="text-gray-400 mt-6 space-y-2 text-sm">
-        <li>✔ Everything in Expert</li>
-        <li>✔ Custom portfolio tailoring</li>
-        <li>✔ 24/7 dedicated manager</li>
-        <li>✔ Insider deal access</li>
+      <h3 class="text-xl font-bold text-white">Diamond Level</h3>
+      <p class="text-gray-400 text-sm mt-1">$50,001 - $100,000+</p>
+
+      <ul class="text-sm text-gray-300 mt-6 space-y-2">
+        <li>✓ Everything in Expert</li>
+        <li>✓ Custom strategies</li>
+        <li>✓ Dedicated manager</li>
       </ul>
 
-      <button class="mt-8 w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 transition">
-        Join Diamond Elite
+      <button onclick="openCalc('Diamond', 50001, Infinity)"
+        class="mt-6 w-full py-3 bg-gray-200 text-black rounded-xl font-semibold hover:bg-white smooth">
+        Invest Diamond
       </button>
     </div>
 
   </div>
 </section>
+
+<!-- ================= MODAL ================= -->
+<div id="modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur flex items-center justify-center p-6">
+
+  <div class="bg-black border border-white/20 rounded-2xl p-6 w-full max-w-md">
+
+    <h3 id="tierTitle" class="text-xl font-bold mb-2"></h3>
+    <p id="tierRange" class="text-gray-400 text-sm mb-6"></p>
+
+    <input id="amount" type="number"
+      class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white"
+      placeholder="Enter investment amount"
+      oninput="calc()">
+
+    <p id="error" class="text-red-400 text-xs mt-2 hidden">Invalid amount for this tier</p>
+
+    <div class="mt-6 p-4 bg-white/5 rounded-xl text-center">
+      <p class="text-gray-400 text-xs">Projected Return (x3 simulation)</p>
+      <h2 id="result" class="text-2xl font-bold mt-2">$0</h2>
+    </div>
+
+    <button onclick="closeModal()"
+      class="mt-6 w-full py-3 bg-white text-black rounded-xl font-semibold">
+      Close
+    </button>
+
+  </div>
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+
+let min = 0;
+let max = Infinity;
+
+function showTiers() {
+  document.getElementById("landing").classList.add("hidden");
+  document.getElementById("tiers").classList.remove("hidden");
+}
+
+function openCalc(tier, minVal, maxVal) {
+  min = minVal;
+  max = maxVal;
+
+  document.getElementById("modal").classList.remove("hidden");
+  document.getElementById("tierTitle").innerText = tier + " Investment";
+  document.getElementById("tierRange").innerText =
+    max === Infinity ? "Minimum: $" + minVal : "$" + minVal + " - $" + maxVal;
+
+  document.getElementById("amount").value = minVal;
+  calc();
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.add("hidden");
+}
+
+function calc() {
+  let val = parseFloat(document.getElementById("amount").value);
+  let err = document.getElementById("error");
+  let res = document.getElementById("result");
+
+  if (isNaN(val) || val < min || val > max) {
+    err.classList.remove("hidden");
+    res.innerText = "$0";
+    return;
+  }
+
+  err.classList.add("hidden");
+  res.innerText = "$" + (val * 3).toLocaleString();
+}
+
+</script>
 
 </body>
 </html>
