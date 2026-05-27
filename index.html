@@ -3,242 +3,211 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stock & Equity Insights</title>
+<title>Stock & Equity Intelligence</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
 body{
-  background: linear-gradient(135deg,#071a33,#0b2a55,#0f3d6e);
-  color:white;
-  font-family:sans-serif;
+  background: radial-gradient(circle at top,#0c1f33,#050b14);
+  color:#e5e7eb;
+  font-family: ui-sans-serif, system-ui;
 }
-
-.card{
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
+.glass{
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(14px);
   border: 1px solid rgba(255,255,255,0.08);
-  transition: 0.3s ease;
 }
-
-.card:hover{
-  transform: translateY(-4px);
-  border-color: rgba(255,255,255,0.25);
-}
-
-.hidden{display:none;}
-
+.hidden{display:none}
 .btn{
-  background: linear-gradient(90deg,#ffffff,#dbeafe);
-  color:#0b2a55;
-  padding:10px 16px;
-  border-radius:10px;
+  background: linear-gradient(135deg,#e5e7eb,#c7d2fe);
+  color:#020617;
+  padding:12px 18px;
+  border-radius:12px;
   font-weight:700;
-  transition:0.3s;
 }
-
-.btn:hover{
-  transform: scale(1.03);
+.btn:hover{opacity:.9}
+.spinner{
+  border:4px solid rgba(255,255,255,.2);
+  border-top:4px solid white;
+  border-radius:50%;
+  width:48px;height:48px;
+  animation:spin 1s linear infinite;
 }
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 
 <body class="min-h-screen">
 
-<!-- ================= INTRO PAGE ================= -->
-<section id="intro" class="p-8 flex flex-col items-center justify-center min-h-screen text-center">
-
-  <h1 class="text-4xl font-bold mb-4 tracking-tight">
-    Stock & Equity Intelligence Platform
-  </h1>
-
-  <p class="text-blue-200 mb-6">
-    Structured market insight • Portfolio modeling • Equity strategy simulation
-  </p>
-
-  <div class="card p-6 rounded-2xl max-w-3xl text-left">
-
-    <p class="mb-4">
-      👋 Have you noticed how modern stock and equity-linked strategies are increasingly used to structure recurring income models within financial markets?
-    </p>
-
-    <p class="mb-4">
-      Today’s investment ecosystem is no longer limited to long-term holding. Institutional-style strategies use layered positioning, volatility cycles, and capital rotation techniques to optimize entry and exit timing across market conditions.
-    </p>
-
-    <p class="mb-4">
-      This platform breaks down those structures into simplified models so you can understand how capital flow, allocation tiers, and market momentum interact in real-world financial environments.
-    </p>
-
-    <p class="text-sm text-blue-100">
-      📊 Market intelligence systems typically analyze liquidity, volatility compression, and sector rotation to identify potential expansion phases in asset pricing behavior.
-    </p>
-
-  </div>
-
-  <button onclick="goInfo()" class="btn mt-8">Proceed to Market Intelligence</button>
+<!-- LOADER -->
+<section id="loader" class="hidden fixed inset-0 bg-black/80 z-50 flex flex-col items-center justify-center">
+  <div class="spinner mb-4"></div>
+  <p class="text-gray-300 text-sm tracking-wide">Analyzing market conditions…</p>
 </section>
 
-<!-- ================= INFO PAGE ================= -->
-<section id="info" class="hidden p-8">
+<!-- INTRO -->
+<section id="intro" class="min-h-screen flex items-center justify-center px-6 text-center">
+  <div class="max-w-3xl">
+    <h1 class="text-4xl md:text-5xl font-bold mb-6">
+      Institutional-Grade Stock & Equity Strategies
+    </h1>
+    <p class="text-gray-300 leading-relaxed mb-8">
+      Global markets are driven by liquidity cycles, volatility compression, and capital rotation.
+      Professional investors structure capital across tiers to capture expansion phases that retail investors often miss.
+      This platform demonstrates how those structured models work — clearly, transparently, and without noise.
+    </p>
 
-  <button onclick="back('intro')" class="mb-4 text-white">← Back</button>
+    <!-- STOCK TICKER -->
+    <div class="glass p-4 rounded-xl mb-8 grid grid-cols-3 text-sm">
+      <div>NASDAQ <span class="text-green-400 ml-2">+0.84%</span></div>
+      <div>S&P 500 <span class="text-green-400 ml-2">+0.52%</span></div>
+      <div>DOW <span class="text-red-400 ml-2">-0.11%</span></div>
+    </div>
 
-  <h2 class="text-2xl font-bold mb-4">Market Intelligence Overview</h2>
-
-  <div class="card p-6 rounded-2xl space-y-4">
-
-    <p>📈 Equities represent fractional ownership in publicly traded companies such as Apple, Microsoft, and Tesla.</p>
-
-    <p>💡 Advanced market strategies focus on cyclical entry positioning and structured capital deployment across volatility phases.</p>
-
-    <p>📊 Institutional investors often monitor liquidity flow, earnings momentum, and macroeconomic signals to position capital efficiently.</p>
-
-    <p>🔷 Structured portfolio models allow capital distribution across multiple tiers of risk exposure and return potential.</p>
-
+    <button onclick="next('info')" class="btn">Explore Market Models</button>
   </div>
-
-  <button onclick="goTiers()" class="btn mt-6">View Investment Structures</button>
-
 </section>
 
-<!-- ================= TIERS ================= -->
-<section id="tiers" class="hidden p-8">
+<!-- INFO -->
+<section id="info" class="hidden p-8 max-w-5xl mx-auto">
+  <button onclick="back('intro')" class="mb-4 text-gray-300">← Back</button>
 
-  <button onclick="back('info')" class="mb-4 text-white">← Back</button>
+  <h2 class="text-3xl font-bold mb-6">How Structured Equity Models Work</h2>
 
-  <h2 class="text-2xl font-bold mb-2">Capital Allocation Tiers</h2>
-  <p class="text-blue-200 mb-6">Select a structured investment model below</p>
+  <div class="glass p-6 rounded-2xl space-y-4">
+    <p>• Capital is deployed in tiers based on risk appetite and liquidity depth.</p>
+    <p>• Advanced strategies focus on multi-cycle positioning rather than single trades.</p>
+    <p>• Returns scale exponentially when capital size meets volatility opportunity.</p>
+    <p>• Institutional desks rotate exposure between equities, derivatives, and cash equivalents.</p>
+  </div>
 
-  <div class="grid md:grid-cols-3 gap-4">
+  <button onclick="next('tiers')" class="btn mt-8">View Investment Tiers</button>
+</section>
 
-    <div class="card p-5 rounded-xl">
-      <h3 class="font-bold text-white">Silver Tier</h3>
-      <p class="text-blue-200">$1,000 - $10,000</p>
-      <p class="text-sm mt-2 text-blue-100">Entry-level capital structure with balanced exposure.</p>
-      <button onclick="openCalc('Silver',1000,10000)" class="btn mt-4 w-full">Select Structure</button>
+<!-- TIERS -->
+<section id="tiers" class="hidden p-8 max-w-6xl mx-auto">
+  <button onclick="back('info')" class="mb-4 text-gray-300">← Back</button>
+  <h2 class="text-3xl font-bold mb-8">Capital Allocation Tiers</h2>
+
+  <div class="grid md:grid-cols-4 gap-6">
+
+    <div class="glass p-6 rounded-xl">
+      <h3 class="font-bold text-lg">Trial Run</h3>
+      <p class="text-sm text-gray-300">$200 – $1,000</p>
+      <p class="text-sm mt-2">Introductory exposure model</p>
+      <p class="mt-2 text-green-400 font-bold">6× Projection</p>
+      <button onclick="selectTier('Trial',200,1000,6)" class="btn mt-4 w-full">Select</button>
     </div>
 
-    <div class="card p-5 rounded-xl border border-blue-300">
-      <h3 class="font-bold">Gold Tier</h3>
-      <p class="text-blue-200">$10,000 - $50,000</p>
-      <p class="text-sm mt-2 text-blue-100">Enhanced allocation with strategic market positioning.</p>
-      <button onclick="openCalc('Gold',10000,50000)" class="btn mt-4 w-full">Select Structure</button>
+    <div class="glass p-6 rounded-xl">
+      <h3 class="font-bold text-lg">Silver</h3>
+      <p class="text-sm text-gray-300">$1,000 – $10,000</p>
+      <p class="mt-2 text-green-400 font-bold">6× Projection</p>
+      <button onclick="selectTier('Silver',1000,10000,6)" class="btn mt-4 w-full">Select</button>
     </div>
 
-    <div class="card p-5 rounded-xl border border-cyan-300">
-      <h3 class="font-bold">Diamond Tier</h3>
-      <p class="text-blue-200">$50,000+</p>
-      <p class="text-sm mt-2 text-blue-100">High-capital institutional style allocation model.</p>
-      <button onclick="openCalc('Diamond',50000,999999)" class="btn mt-4 w-full">Select Structure</button>
+    <div class="glass p-6 rounded-xl border border-yellow-400">
+      <h3 class="font-bold text-lg">Gold</h3>
+      <p class="text-sm text-gray-300">$10,000 – $50,000</p>
+      <p class="mt-2 text-emerald-400 font-bold">10× Projection</p>
+      <button onclick="selectTier('Gold',10000,50000,10)" class="btn mt-4 w-full">Select</button>
+    </div>
+
+    <div class="glass p-6 rounded-xl border border-cyan-400">
+      <h3 class="font-bold text-lg">Diamond</h3>
+      <p class="text-sm text-gray-300">$50,000+</p>
+      <p class="mt-2 text-emerald-400 font-bold">10× Projection</p>
+      <button onclick="selectTier('Diamond',50000,9999999,10)" class="btn mt-4 w-full">Select</button>
     </div>
 
   </div>
-
 </section>
 
-<!-- ================= CALCULATOR ================= -->
-<section id="calc" class="hidden p-8">
+<!-- CALCULATOR -->
+<section id="calc" class="hidden p-8 max-w-xl mx-auto">
+  <button onclick="back('tiers')" class="mb-4 text-gray-300">← Back</button>
 
-  <button onclick="back('tiers')" class="mb-4 text-white">← Back</button>
+  <h2 id="calcTitle" class="text-2xl font-bold mb-4"></h2>
 
-  <h2 id="tierTitle" class="text-xl font-bold mb-2"></h2>
-  <p class="text-blue-200 mb-4">Simulated capital growth model (multi-cycle projection)</p>
+  <div class="glass p-6 rounded-2xl">
+    <input id="amount" type="number" class="w-full p-3 rounded text-black"
+      placeholder="Enter investment amount" oninput="calculate()">
 
-  <div class="card p-6 rounded-2xl max-w-md">
-
-    <input id="amount" type="number"
-      class="w-full p-3 text-black rounded"
-      placeholder="Enter capital allocation"
-      oninput="calculate()">
-
-    <div class="mt-4 p-4 bg-white/5 rounded-xl">
-      <p class="text-sm text-blue-200">Projected Growth Model</p>
-      <p id="result" class="text-green-300 font-bold text-xl mt-1"></p>
-      <p class="text-xs text-blue-200 mt-1">Based on 6-cycle structured expansion model</p>
+    <div class="mt-4 text-sm text-gray-300">
+      <p id="range"></p>
+      <p id="projection" class="text-green-400 font-bold mt-2"></p>
     </div>
 
-    <button onclick="goContact()" class="btn mt-6 w-full">
-      Continue Analysis
+    <button onclick="next('contact',true)" class="btn mt-6 w-full">
+      Proceed
     </button>
-
   </div>
-
 </section>
 
-<!-- ================= CONTACT ================= -->
-<section id="contact" class="hidden p-8 text-center">
+<!-- CONTACT -->
+<section id="contact" class="hidden p-8 max-w-2xl mx-auto text-center">
+  <button onclick="back('calc')" class="mb-4 text-gray-300">← Back</button>
 
-  <button onclick="back('calc')" class="mb-4 text-white">← Back</button>
+  <h2 class="text-2xl font-bold mb-4">Next Step</h2>
 
-  <h2 class="text-xl font-bold mb-4">Capital Deployment Process</h2>
-
-  <div class="card p-6 rounded-2xl max-w-xl mx-auto">
-
+  <div class="glass p-6 rounded-2xl">
     <p class="mb-4">
-      To proceed with this structured allocation model, contact your assigned investment manager for execution guidance and capital processing instructions.
+      To activate this allocation model, contact your assigned investment manager.
+      They will provide execution guidance and next-step coordination.
     </p>
-
-    <p class="text-blue-200 text-sm">
-      All selected tier configurations and projected outputs have been logged for review within your session.
+    <p class="text-sm text-gray-300">
+      Your selected tier and projected model output have been recorded.
     </p>
-
   </div>
-
 </section>
+
+<!-- LIVE CHAT -->
+<div class="fixed bottom-6 right-6 glass p-4 rounded-full cursor-pointer">
+  💬
+</div>
 
 <script>
+let min=0,max=0,mult=1;
 
-let min=0,max=0,tier="";
-
-function goInfo(){
-  document.getElementById("intro").classList.add("hidden");
-  document.getElementById("info").classList.remove("hidden");
+function showLoader(cb){
+  document.getElementById("loader").classList.remove("hidden");
+  setTimeout(()=>{
+    document.getElementById("loader").classList.add("hidden");
+    cb();
+  },5000);
 }
 
-function goTiers(){
-  document.getElementById("info").classList.add("hidden");
-  document.getElementById("tiers").classList.remove("hidden");
+function next(id,check=false){
+  if(check){
+    const v=Number(amount.value);
+    if(isNaN(v)||v<min||v>max) return;
+  }
+  showLoader(()=>{
+    document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
+    document.getElementById(id).classList.remove("hidden");
+  });
 }
 
-function openCalc(t,mn,mx){
-  tier=t;
-  min=mn;
-  max=mx;
+function back(id){
+  document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
 
-  document.getElementById("tiers").classList.add("hidden");
-  document.getElementById("calc").classList.remove("hidden");
-
-  document.getElementById("tierTitle").innerText = t + " Tier Model";
+function selectTier(t,mn,mx,m){
+  min=mn;max=mx;mult=m;
+  calcTitle.innerText=t+" Tier Projection";
+  range.innerText="Allowed range: $"+mn.toLocaleString()+" – $"+mx.toLocaleString();
+  amount.value="";
+  projection.innerText="";
+  next("calc");
 }
 
 function calculate(){
-  let v = Number(document.getElementById("amount").value);
-
-  if(isNaN(v) || v < min || v > max){
-    document.getElementById("result").innerText = "";
-    return;
-  }
-
-  document.getElementById("result").innerText =
-    "$" + (v * 6).toLocaleString();
+  const v=Number(amount.value);
+  if(isNaN(v)||v<min||v>max){projection.innerText="";return;}
+  projection.innerText="Projected Model Output: $"+(v*mult).toLocaleString();
 }
-
-function goContact(){
-  document.getElementById("calc").classList.add("hidden");
-  document.getElementById("contact").classList.remove("hidden");
-}
-
-function back(page){
-  document.getElementById("intro").classList.add("hidden");
-  document.getElementById("info").classList.add("hidden");
-  document.getElementById("tiers").classList.add("hidden");
-  document.getElementById("calc").classList.add("hidden");
-  document.getElementById("contact").classList.add("hidden");
-
-  document.getElementById(page).classList.remove("hidden");
-}
-
 </script>
 
 </body>
